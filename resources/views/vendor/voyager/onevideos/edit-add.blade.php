@@ -91,14 +91,25 @@
                         </div>
                         <div class="panel-body">
                             @include('voyager::multilingual.input-hidden', [
-                                '_field_name'  => 'title',
-                                '_field_trans' => get_field_translations($dataTypeContent, 'title')
+                                '_field_name'  => 'caption',
+                                '_field_trans' => get_field_translations($dataTypeContent, 'caption')
                             ])
-                            <input type="text" class="form-control" id="title" name="title" placeholder="{{ __('voyager::generic.title') }}" value="@if(isset($dataTypeContent->title)){{ $dataTypeContent->title }}@endif">
+                            <input type="text" class="form-control" id="caption" name="caption" placeholder="{{ __('voyager::generic.caption') }}" value="@if(isset($dataTypeContent->caption)){{ $dataTypeContent->caption }}@endif">
                         </div>
                     </div>
                 </div>
             </div>
         </form>
     </div>
+@stop
+@section('javascript')
+    <script>
+        $('document').ready(function () {
+            $('#slug').slugify();
+
+        @if ($isModelTranslatable)
+            $('.side-body').multilingual({"editing": true});
+        @endif
+        });
+    </script>
 @stop

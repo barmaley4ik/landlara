@@ -9,5 +9,6 @@ use TCG\Voyager\Facades\Voyager;
 class Onevideo extends Model
 {
 	use Translatable;
-    protected $translatable = ['caption', 'caption_button'];
+    protected $translatable = ['caption'];
+    protected $guarded = [];
 }
