@@ -107,16 +107,32 @@
                             </div>
                             <div class="panel-body">
                                 @include('voyager::multilingual.input-hidden', [
-                                    '_field_name'  => 'caption_bottom',
-                                    '_field_trans' => get_field_translations($dataTypeContent, 'caption_bottom')
+                                    '_field_name'  => 'caption_button',
+                                    '_field_trans' => get_field_translations($dataTypeContent, 'caption_button')
                                 ])
-                                <input type="text" class="form-control" id="caption_bottom" name="caption_bottom" placeholder="{{ __('voyager::generic.caption') }}" value="@if(isset($dataTypeContent->caption_bottom)){{ $dataTypeContent->caption_bottom }}@endif">
+                                <input type="text" class="form-control" id="caption_button" name="caption_button" placeholder="{{ __('voyager::generic.caption') }}" value="@if(isset($dataTypeContent->caption_button)){{ $dataTypeContent->caption_button }}@endif">
                             </div>
-                            <button type="submit" class="btn btn-primary pull-right">
-                                @if(isset($dataTypeContent->id)){{ __('voyager::onevideos.update') }}@else <i class="icon wb-plus-circle"></i> {{ __('voyager::generic.new') }} @endif
-                            </button>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="panel panel-bordered panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="icon wb-image"></i> {{ __('voyager::generic.image') }}</h3>
+                            <div class="panel-actions">
+                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            @if(isset($dataTypeContent->image))
+                                <img src="{{ filter_var($dataTypeContent->image, FILTER_VALIDATE_URL) ? $dataTypeContent->image : Voyager::image( $dataTypeContent->image ) }}" style="width:100%" />
+                            @endif
+                            <input type="file" name="image">
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary pull-right">
+                    @if(isset($dataTypeContent->id)){{ __('voyager::generic.new') }}@else <i class="icon wb-plus-circle"></i> {{ __('voyager::generic.new') }} @endif
+                </button>
             </div>
         </form>
     </div>
