@@ -1,0 +1,14 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+
+class MainlandBlockslider extends Model
+{
+      public function sliders()
+  {
+    return $this->belongsToMany('App\Oneslider', 'oneslider_blockslider');
+  }
+}
