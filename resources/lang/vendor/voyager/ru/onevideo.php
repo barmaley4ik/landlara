@@ -2,6 +2,6 @@
 
 return [
     'caption'			=> 'Заголовок',
-    'caption_bottom'			=> 'Заголовок кнопки',
+    'caption_button'			=> 'Заголовок кнопки',
 
 ];
