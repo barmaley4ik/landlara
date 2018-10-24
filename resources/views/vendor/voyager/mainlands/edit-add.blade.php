@@ -282,8 +282,6 @@
         @endif
         });
     </script>
-@stop
-@section('javascript')
     <script>
         var params = {};
         var $image;
