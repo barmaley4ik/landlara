@@ -90,24 +90,44 @@
                                 <i class="voyager-character"></i> {{ __('voyager::onevideo.caption') }}
                                 {{--<span class="panel-desc"> {{ __('voyager::onevideo.title_sub') }}</span>--}}
                             </h3>
-                            <div class="panel-actions">
-                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
-                            </div>
+                            {{--<div class="panel-actions">--}}
+                                {{--<a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>--}}
+                            {{--</div>--}}
                         </div>
                         <div class="panel-body">
+                            <div class="caption">
                             @include('voyager::multilingual.input-hidden', [
                                 '_field_name'  => 'caption',
                                 '_field_trans' => get_field_translations($dataTypeContent, 'caption')
                             ])
                             <input type="text" class="form-control" id="caption" name="caption" placeholder="{{ __('voyager::generic.caption') }}" value="@if(isset($dataTypeContent->caption)){{ $dataTypeContent->caption }}@endif">
+                            </div>
+                            <br>
+                            <div class="link">
+                                <label class="title">{{ __('voyager::generic.video') }}</label>
+                                <br>
+                                <input type="text" class="form-control" id="linkvideo" name="linkvideo" placeholder="{{ __('voyager::generic.video') }}" value="@if(isset($dataTypeContent->linkvideo)){{ $dataTypeContent->linkvideo }}@endif">
+                            </div>
+                            <br>
+                            @foreach($dataTypeRows as $row)
+                                @if($row->field == 'typevideo')
+                                    <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                        <label for="name">{{ $row->display_name }}</label>
+                                        {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                    </div>
+                                @endif
+                            @endforeach
                         </div>
-
                     </div>
+
                     <div class="panel panel-bordered panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="icon wb-image"></i> {{ __('voyager::generic.button') }}</h3>
+                            <div class="panel-actions">
+                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
+                            </div>
                         </div>
-                        </div>
+
                         <!-- ### button ### -->
                         <div class="panel-body">
                             @foreach($dataTypeRows as $row)
@@ -149,7 +169,26 @@
                             </div>
                         </div>
                     </div>
+                </div>
                 <div class="col-md-4">
+                    <div class="panel panel panel-bordered panel-warning">
+                        <div class="panel-body">
+                            @foreach($dataTypeRows as $row)
+                                @if($row->field == 'status')
+                                <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                    <label for="name">{{ $row->display_name }}</label>
+                                    {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                </div>
+                                @endif
+                                    @if($row->field == 'created_at')
+                                        <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                            <label for="name">{{ $row->display_name }}</label>
+                                            {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                        </div>
+                                    @endif
+                            @endforeach
+                        </div>
+                    </div>
                     <div class="panel panel-bordered panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="icon wb-image"></i> {{ __('voyager::generic.image') }}</h3>
@@ -162,17 +201,6 @@
                                 <img src="{{ filter_var($dataTypeContent->image, FILTER_VALIDATE_URL) ? $dataTypeContent->image : Voyager::image( $dataTypeContent->image ) }}" style="width:100%" />
                             @endif
                             <input type="file" name="image">
-                        </div>
-                    </div>
-                    <div class="panel panel-bordered panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="icon wb-image"></i> {{ __('voyager::generic.video') }}</h3>
-                            <div class="panel-actions">
-                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <input type="text" class="form-control" id="linkvideo" name="linkvideo" placeholder="{{ __('voyager::generic.video') }}" value="@if(isset($dataTypeContent->linkvideo)){{ $dataTypeContent->linkvideo }}@endif">
                         </div>
                     </div>
                 </div>
