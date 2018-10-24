@@ -137,6 +137,14 @@
                                     </div>
                                 @endif
                             @endforeach
+                                @foreach($dataTypeRows as $row)
+                                    @if($row->field == 'sort_order')
+                                        <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                            <label for="name">{{ $row->display_name }}</label>
+                                            {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                        </div>
+                                    @endif
+                                @endforeach
                         </div>
                     </div>
                     <div class="panel panel panel-bordered panel-warning">
