@@ -59,6 +59,11 @@
 @stop
 
 @section('content')
+    @php
+        $dataTypeRows = $dataType->{(isset($dataTypeContent->id) ? 'editRows' : 'addRows' )};
+        //$exclude = ['title', 'body', 'excerpt', 'slug', 'status', 'category_id', 'author_id', 'featured', 'image', 'meta_description', 'meta_keywords', 'seo_title'];
+    @endphp
+{{dd($dataTypeRows)}}
     <div class="page-content container-fluid">
         <form class="form-edit-add" role="form" action="@if(isset($dataTypeContent->id)){{ route('voyager.onevideos.update', $dataTypeContent->id) }}@else{{ route('voyager.onevideos.store') }}@endif" method="POST" enctype="multipart/form-data">
             <!-- PUT Method if we are editing -->
@@ -96,22 +101,54 @@
                             ])
                             <input type="text" class="form-control" id="caption" name="caption" placeholder="{{ __('voyager::generic.caption') }}" value="@if(isset($dataTypeContent->caption)){{ $dataTypeContent->caption }}@endif">
                         </div>
-                            <div class="panel-heading">
-                                <h3 class="panel-title">
-                                    <i class="voyager-character"></i> {{ __('voyager::onevideo.caption_bottom') }}
-                                    {{--<span class="panel-desc"> {{ __('voyager::onevideo.title_sub') }}</span>--}}
-                                </h3>
-                                <div class="panel-actions">
-                                    <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
-                                </div>
+                    </div>
+                    <div class="panel panel-bordered panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="icon wb-image"></i> {{ __('voyager::generic.button') }}</h3>
+                            <div class="panel-actions">
+                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
                             </div>
-                            <div class="panel-body">
+                        </div>
+                        <!-- ### button ### -->
+                        <div class="panel-body">
+                            @foreach($dataTypeRows as $row)
+                                @if($row->field == 'button')
+                                    @php
+                                        $options = json_decode($row->details);
+                                        $display_options = isset($options->display) ? $options->display : NULL;
+                                    @endphp
+                                    @if ($options && isset($options->formfields_custom))
+                                        @include('voyager::formfields.custom.' . $options->formfields_custom)
+                                    @else
+                                        <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                            {{ $row->slugify }}
+                                            <label for="name">{{ $row->display_name }}</label>
+                                            @include('voyager::multilingual.input-hidden-bread-edit-add')
+                                            @if($row->type == 'relationship')
+                                                @include('voyager::formfields.relationship')
+                                            @else
+                                                {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                            @endif
+
+                                            @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
+                                                {!! $after->handle($row, $dataType, $dataTypeContent) !!}
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                @endif
+                            @endforeach
+                            <!-- ### caption_bottom ### -->
+                            <div class="caption_bottom">
+                                <label class="title">
+                                    {{ __('voyager::onevideo.caption_bottom') }}
+                                </label>
                                 @include('voyager::multilingual.input-hidden', [
                                     '_field_name'  => 'caption_button',
                                     '_field_trans' => get_field_translations($dataTypeContent, 'caption_button')
                                 ])
                                 <input type="text" class="form-control" id="caption_button" name="caption_button" placeholder="{{ __('voyager::generic.caption') }}" value="@if(isset($dataTypeContent->caption_button)){{ $dataTypeContent->caption_button }}@endif">
                             </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -129,6 +166,17 @@
                             <input type="file" name="image">
                         </div>
                     </div>
+                    <div class="panel panel-bordered panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="icon wb-image"></i> {{ __('voyager::generic.video') }}</h3>
+                            <div class="panel-actions">
+                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <input type="text" class="form-control" id="linkvideo" name="linkvideo" placeholder="{{ __('voyager::generic.video') }}" value="@if(isset($dataTypeContent->linkvideo)){{ $dataTypeContent->linkvideo }}@endif">
+                        </div>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary pull-right">
                     @if(isset($dataTypeContent->id)){{ __('voyager::generic.new') }}@else <i class="icon wb-plus-circle"></i> {{ __('voyager::generic.new') }} @endif
@@ -136,6 +184,8 @@
             </div>
         </form>
     </div>
+
+
 @stop
 @section('javascript')
     <script>
@@ -146,5 +196,64 @@
             $('.side-body').multilingual({"editing": true});
         @endif
         });
+    </script>
+    <script>
+
+        var params = {};
+        var $image;
+
+        $('document').ready(function () {
+            $('.toggleswitch').bootstrapToggle();
+
+            //Init datepicker for date fields if data-datepicker attribute defined
+            //or if browser does not handle date inputs
+            $('.form-group input[type=date]').each(function (idx, elt) {
+                if (elt.type != 'date' || elt.hasAttribute('data-datepicker')) {
+                    elt.type = 'text';
+                    $(elt).datetimepicker($(elt).data('datepicker'));
+                }
+            });
+
+            $('.side-body').multilingual({"editing": true});
+
+            $('.side-body input[data-slug-origin]').each(function(i, el) {
+                $(el).slugify();
+            });
+
+            $('.form-group').on('click', '.remove-multi-image', function (e) {
+                e.preventDefault();
+                $image = $(this).siblings('img');
+
+                params = {
+                    slug:   'onevideos',
+                    image:  $image.data('image'),
+                    id:     $image.data('id'),
+                    field:  $image.parent().data('field-name'),
+                    _token: 't7AiBAwCkoq3D04Nn5gtv1Uf5aReR2Wf6so1KUOT'
+                }
+
+                $('.confirm_delete_name').text($image.data('image'));
+                $('#confirm_delete_modal').modal('show');
+            });
+
+            $('#confirm_delete').on('click', function(){
+                $.post('http://landlara.loc/admin/media/remove', params, function (response) {
+                    if ( response
+                        && response.data
+                        && response.data.status
+                        && response.data.status == 200 ) {
+
+                        toastr.success(response.data.message);
+                        $image.parent().fadeOut(300, function() { $(this).remove(); })
+                    } else {
+                        toastr.error("Error removing image.");
+                    }
+                });
+
+                $('#confirm_delete_modal').modal('hide');
+            });
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
     </script>
 @stop
