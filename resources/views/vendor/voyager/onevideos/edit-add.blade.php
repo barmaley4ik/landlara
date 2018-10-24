@@ -180,12 +180,6 @@
                                     {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
                                 </div>
                                 @endif
-                                    @if($row->field == 'created_at')
-                                        <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-                                            <label for="name">{{ $row->display_name }}</label>
-                                            {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
-                                        </div>
-                                    @endif
                             @endforeach
                         </div>
                     </div>
