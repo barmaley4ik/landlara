@@ -63,7 +63,7 @@
         $dataTypeRows = $dataType->{(isset($dataTypeContent->id) ? 'editRows' : 'addRows' )};
         //$exclude = ['title', 'body', 'excerpt', 'slug', 'status', 'category_id', 'author_id', 'featured', 'image', 'meta_description', 'meta_keywords', 'seo_title'];
     @endphp
-{{dd($dataTypeRows)}}
+
     <div class="page-content container-fluid">
         <form class="form-edit-add" role="form" action="@if(isset($dataTypeContent->id)){{ route('voyager.onevideos.update', $dataTypeContent->id) }}@else{{ route('voyager.onevideos.store') }}@endif" method="POST" enctype="multipart/form-data">
             <!-- PUT Method if we are editing -->
@@ -101,24 +101,12 @@
                             ])
                             <input type="text" class="form-control" id="caption" name="caption" placeholder="{{ __('voyager::generic.caption') }}" value="@if(isset($dataTypeContent->caption)){{ $dataTypeContent->caption }}@endif">
                         </div>
-<<<<<<< HEAD
+
                     </div>
                     <div class="panel panel-bordered panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="icon wb-image"></i> {{ __('voyager::generic.button') }}</h3>
-                            <div class="panel-actions">
-                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
-=======
-                            <div class="panel-heading">
-                                <h3 class="panel-title">
-                                    <i class="voyager-character"></i> {{ __('voyager::onevideo.caption_button') }}
-                                    {{--<span class="panel-desc"> {{ __('voyager::onevideo.title_sub') }}</span>--}}
-                                </h3>
-                                <div class="panel-actions">
-                                    <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
-                                </div>
->>>>>>> b76c4d1f79ca7d0b8eca2d86d5d0752d54ed713d
-                            </div>
+                        </div>
                         </div>
                         <!-- ### button ### -->
                         <div class="panel-body">
@@ -161,7 +149,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
                 <div class="col-md-4">
                     <div class="panel panel-bordered panel-primary">
                         <div class="panel-heading">
