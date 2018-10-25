@@ -33,7 +33,7 @@
                     @endphp
 
                     @if($row->required === 0)
-                        <option value="">{{__('voyager::generic.none')}}</option>
+                        <option value="-1">{{__('voyager::generic.none')}}</option>
                     @endif
 
                     @foreach($query as $relationshipData)
