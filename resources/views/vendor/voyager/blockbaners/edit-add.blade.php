@@ -64,7 +64,7 @@
         //$exclude = ['title', 'body', 'excerpt', 'slug', 'status', 'category_id', 'author_id', 'featured', 'image', 'meta_description', 'meta_keywords', 'seo_title'];
     @endphp
     <div class="page-content container-fluid">
-        <form class="form-edit-add" role="form" action="@if(isset($dataTypeContent->id)){{ route('voyager.mainlands.update', $dataTypeContent->id) }}@else{{ route('voyager.mainlands.store') }}@endif" method="POST" enctype="multipart/form-data">
+        <form class="form-edit-add" role="form" action="@if(isset($dataTypeContent->id)){{ route('voyager.blockbaners.update', $dataTypeContent->id) }}@else{{ route('voyager.blockbaners.store') }}@endif" method="POST" enctype="multipart/form-data">
             <!-- PUT Method if we are editing -->
             @if(isset($dataTypeContent->id))
                 {{ method_field("PUT") }}
