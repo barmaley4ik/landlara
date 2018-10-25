@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Blockbaner extends Model
 {
        protected $attributes = [   
-       'sort_order' => 0  
+       'sort_order' => 0  	   
     ] ;  
 }
