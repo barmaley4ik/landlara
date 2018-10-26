@@ -54,7 +54,7 @@
 					<div class="container-login100-form-btn p-t-25">
 						<button type="submit" class="login100-form-btn">
 						<span class="signingin hidden"><span class="voyager-refresh"></span> {{ __('voyager::login.loggingin') }}...</span>
-                        <span class="signin">{{ __('voyager::generic.login') }}</span>
+                        <!--<span class="signin">{{ __('voyager::generic.login') }}</span>-->
 						</button>
 					</div>
 
