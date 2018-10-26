@@ -144,44 +144,11 @@
                 <div class="col-md-4">
                     <div class="panel panel panel-bordered panel-warning">
                         <div class="panel-body">
-                            @foreach($dataTypeRows as $row)
-                                @if($row->field == 'subdomen')
-                                    @php
-                                        $options = json_decode($row->details);
-                                        $display_options = isset($options->display) ? $options->display : NULL;
-                                    @endphp
-                                    <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-                                        <label for="name">{{ $row->display_name }}</label>
-                                        {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
-                                    </div>
-                                @endif
-                            @endforeach
-                            @foreach($dataTypeRows as $row)
-                                @if($row->field == 'status')
-                                    @php
-                                        $options = json_decode($row->details);
-                                        $display_options = isset($options->display) ? $options->display : NULL;
-                                    @endphp
-                                    <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-                                        <label for="name">{{ $row->display_name }}</label>
-                                        {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
-                                    </div>
-                                @endif
-                            @endforeach
-                            @foreach($dataTypeRows as $row)
-                                @if($row->field == 'robots')
-                                    @php
-                                        $options = json_decode($row->details);
-                                        $display_options = isset($options->display) ? $options->display : NULL;
-                                    @endphp
-                                    <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-                                        <label for="name">{{ $row->display_name }}</label>
-                                        {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
-                                    </div>
-                                @endif
-                            @endforeach
-                            @foreach($dataTypeRows as $row)
-                                @if($row->field == 'slug')
+							@php
+							$fieldrow = array('subdomen', 'status', 'robots','slug');
+							@endphp						
+							@foreach($dataTypeRows as $row)
+								@if (in_array($row->field, $fieldrow))							
                                     @php
                                         $options = json_decode($row->details);
                                         $display_options = isset($options->display) ? $options->display : NULL;
