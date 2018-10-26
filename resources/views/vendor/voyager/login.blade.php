@@ -1,80 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Admin - {{ Voyager::setting("admin.title") }}</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="{{ voyager_asset('images/icons/favicon.ico') }}"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ voyager_asset('vendor/bootstrap/css/bootstrap.min.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ voyager_asset('fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ voyager_asset('fonts/Linearicons-Free-v1.0.0/icon-font.min.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ voyager_asset('vendor/animate/animate.css') }}">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="{{ voyager_asset('vendor/css-hamburgers/hamburgers.min.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ voyager_asset('vendor/select2/select2.min.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ voyager_asset('css/util.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ voyager_asset('css/main.css') }}">
-<!--===============================================================================================-->
-</head>
-<body>
-	
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
-				<form class="login100-form validate-form" action="{{ route('voyager.login') }}" method="POST">
-				{{ csrf_field() }}
-					<span class="login100-form-title p-b-55">
-					{{ __('voyager::login.signin_below') }}
-					</span>
-					
-					<div class="wrap-input100 validate-input m-b-16" data-validate = "Valid email is required: ex@abc.xyz" id="emailGroup">
-						<input class="input100" type="text" name="email" id="email" value="{{ old('email') }}" placeholder="{{ __('voyager::generic.email') }}">
-						<span class="focus-input100"></span>
-						<span class="symbol-input100">
-							<span class="lnr lnr-envelope"></span>
-						</span>
-					</div>
+<html lang="{{ config('app.locale') }}" @if (config('voyager.multilingual.rtl')) dir="rtl" @endif>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="robots" content="none" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+        <meta name="description" content="admin login">
+        <title>Admin - {{ Voyager::setting("admin.title") }}</title>
+        <link rel="stylesheet" href="{{ voyager_asset('css/app.css') }}">
+        @if (config('voyager.multilingual.rtl'))
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-rtl/3.4.0/css/bootstrap-rtl.css">
+            <link rel="stylesheet" href="{{ voyager_asset('css/rtl.css') }}">
 
-					<div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required" id="passwordGroup">
-						<input class="input100" type="password" name="password" placeholder="{{ __('voyager::generic.password') }}">
-						<span class="focus-input100"></span>
-						<span class="symbol-input100">
-							<span class="lnr lnr-lock"></span>
-						</span>
-					</div>
-
-					
-					<div class="container-login100-form-btn p-t-25">
-						<button type="submit" class="login100-form-btn">
-						<span class="signingin hidden"><span class="voyager-refresh"></span> {{ __('voyager::login.loggingin') }}...</span>
-                        <span class="signin">{{ __('voyager::generic.login') }}</span>
-						</button>
-					</div>
-
-				</form>
-			</div>
-		</div>
-	</div>
-	
-	
-
-	
-<!--===============================================================================================-->	
-	<script src="{{ voyager_asset('vendor/jquery/jquery-3.2.1.min.js') }}"></script>
-<!--===============================================================================================-->
-	<script src="{{ voyager_asset('vendor/bootstrap/js/popper.js') }}"></script>
-	<script src="{{ voyager_asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-<!--===============================================================================================-->
-	<script src="{{ voyager_asset('vendor/select2/select2.min.js') }}"></script>
-<!--===============================================================================================-->
-	<script src="{{ voyager_asset('js/main.js') }}"></script>
-
-</body>
+    @endif
+        <link rel="stylesheet" href="{{ voyager_asset('css/style.css') }}">
+    </head>
+    <body>
+        <div class="login">
+            <h1>{{ __('voyager::login.signin') }}</h1>
+            <form method="post" action="{{ route('voyager.login') }}">
+                {{ csrf_field() }}
+                <input type="email" value="{{ old('email') }}" name="email" placeholder="{{ __('voyager::generic.email') }}" required="required" />
+                <input type="password" name="password" placeholder="{{ __('voyager::generic.password') }}" required="required" />
+                <button type="submit" class="btn btn-primary btn-block btn-large">
+                    <span class="signingin hidden"><span class="voyager-refresh"></span> {{ __('voyager::login.loggingin') }}...</span>
+                    <span class="signin">{{ __('voyager::generic.login') }}</span>
+                </button>
+            </form>
+        </div>
+        <script>
+            var btn = document.querySelector('button[type="submit"]');
+            var form = document.forms[0];
+            var email = document.querySelector('[name="email"]');
+            var password = document.querySelector('[name="password"]');
+            btn.addEventListener('click', function(ev){
+                if (form.checkValidity()) {
+                    btn.querySelector('.signingin').className = 'signingin';
+                    btn.querySelector('.signin').className = 'signin hidden';
+                } else {
+                    ev.preventDefault();
+                }
+            });
+        </script>
+        <script src="{{ voyager_asset('js/index.js') }}"></script>
+    </body>
 </html>
