@@ -11,8 +11,8 @@ class Blockslider extends Model
        'sort_order' => 0  
 	] ;
 	
-/*   public function sliders()
+   public function sliders()
   {
     return $this->belongsToMany('App\Oneslider', 'oneslider_blockslider');
-  } */
+  } 
 }
