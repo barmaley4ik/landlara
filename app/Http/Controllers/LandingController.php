@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Mainland;
 use App\Blockslider;
 use App\Blockbaner;
+use App\Onevideo;
 use Illuminate\Support\Facades\DB;
 
 class LandingController extends Controller
@@ -15,8 +16,11 @@ class LandingController extends Controller
     {
 			
 			/*страница лендинга*/
-			// $landing = Mainland::where('status',1)->firstOrFail();
-			// $landing = Mainland::active();
+			$landing = Mainland::active();
+			/*видео блок*/
+			$video = Onevideo::where('id',  $landing->onevideo_id)->active();
+
+						
 			/*все дочерние слайдеры*/
 			$sliders = DB::table('mainland_blockslider')
             ->leftJoin('blocksliders', 'mainland_blockslider.blockslider_id', '=', 'blocksliders.id')
@@ -32,23 +36,20 @@ class LandingController extends Controller
             ->get();
 			
 			/*все дочерние банеры*/
-			// $baners = DB::table('mainland_blockbaner')
-   //          ->leftJoin('blockbaners', 'mainland_blockbaner.blockbaner_id', '=', 'blockbaners.id')
-			// ->leftJoin('onebaner_blockbaner', 'blockbaners.id', '=', 'onebaner_blockbaner.blockbaner_id')
-			// ->leftJoin('onebaners', 'onebaner_blockbaner.onebaner_id', '=', 'onebaners.id')
-			// ->where('mainland_blockbaner.mainland_id', 2)
-			// ->where('blockbaners.status', 1)
-			// ->orderBy('blockbaners.sort_order')
-			// ->orderBy('blockbaners.id')
-			// ->orderBy('onebaners.sort_order')
-			// ->orderBy('onebaners.id')
-			// ->select('onebaners.*','blockbaners.*')
-   //          ->get();
+			$baners = DB::table('mainland_blockbaner')
+            ->leftJoin('blockbaners', 'mainland_blockbaner.blockbaner_id', '=', 'blockbaners.id')
+			->leftJoin('onebaner_blockbaner', 'blockbaners.id', '=', 'onebaner_blockbaner.blockbaner_id')
+			->leftJoin('onebaners', 'onebaner_blockbaner.onebaner_id', '=', 'onebaners.id')
+			->where('mainland_blockbaner.mainland_id', 2)
+			->where('blockbaners.status', 1)
+			->orderBy('blockbaners.sort_order')
+			->orderBy('blockbaners.id')
+			->orderBy('onebaners.sort_order')
+			->orderBy('onebaners.id')
+			->select('onebaners.*','blockbaners.*')
+            ->get();
 						
-			
-			//$sliders2= Blockslider::find(2)->sliders;
-			//var_dump($landing);
- 			var_dump($sliders);
+            return view ('landing', compact('landing', 'video','sliders','baners'));
 			//var_dump($baners); 
     }
 
