@@ -17,6 +17,21 @@ class LandingController extends Controller
 			
 			/*страница лендинга*/
 			$landing = Mainland::active();
+  			if (isset($landing->facebook))
+  				$socs[''] =$landing->facebook; 
+			if (isset($landing->twitter))
+  				$socs[''] =$landing->twitter; 
+			if (isset($landing->instagramm))
+  				$socs[''] =$landing->instagramm;   			  		
+			if (isset($landing->youtube))
+  				$socs[''] =$landing->youtube; 
+  			if (isset($landing->pinterest))
+  				$socs[''] =$landing->pinterest; 
+  			if (isset($landing->googleplus))
+  				$socs[''] =$landing->googleplus; 
+			//$socials = '';
+			if (isset($socs))
+			$socials = sprintf('"%s"', implode('", "', ($socs ?? '')));
 			/*видео блок*/
 			$video = Onevideo::where('id',  $landing->onevideo_id)->active();
 
@@ -49,7 +64,7 @@ class LandingController extends Controller
 			->select('onebaners.*','blockbaners.*')
             ->get();
 						
-            return view ('landing', compact('landing', 'video','sliders','baners'));
+            return view ('landing', compact('landing','socials' ,'video','sliders','baners'));
 			//var_dump($baners); 
     }
 
