@@ -9,15 +9,19 @@ use App\Blockbaner;
 use App\Onevideo;
 use Illuminate\Support\Facades\DB;
 use Jenssegers\Agent\Agent;
-
+use Illuminate\Support\Facades\App;
 class LandingController extends Controller
 {
 	
-	    public function index()
+	    public function index($locale=null)
     {
+			/*установка локали*/ 
+			if ($locale){
+			App::setLocale($locale);
+			}   	
 			$agent = new Agent();
 			/*страница лендинга*/
-			$landing = Mainland::active();
+			$landing = Mainland::withTranslation($locale)->active();
   			if (isset($landing->facebook))
   				$socs[''] =$landing->facebook; 
 			if (isset($landing->twitter))
