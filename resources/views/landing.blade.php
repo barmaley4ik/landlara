@@ -35,10 +35,10 @@
 }     
         </script>  
 
-        <link rel="icon" href="{{Storage::disk('public')->url($landing->favicon)}}" type="image/png" />
+        <link rel="icon" href="{{ Storage::disk('public')->url($landing->favicon) }}" type="image/png" />
     <!--    <link rel="shortcut icon" href="//upst.fwdcdn.com/favicon-v3.ico" type="'image/x-icon"/>-->
         <!-- For iPhone 4 Retina display: -->
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{Storage::disk('public')->url($landing->favicon)}}">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ Storage::disk('public')->url($landing->favicon) }}">
         <!-- For iPad: -->
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ Voyager::image($landing->thumbnail('medium', 'favicon')) }}">
         <!-- For iPhone: -->
