@@ -53,7 +53,7 @@
 
     <div class="row contact-infos">
 
-{{--         <div class="col-five md-seven tab-full contact-address" data-aos="fade-up">
+        <div class="col-five md-seven tab-full contact-address" data-aos="fade-up">
             <h4>Where to Find Us</h4>
 
             <p>
@@ -61,7 +61,7 @@
             Mountain View, California <br>
             94043  US
             </p>
-        </div> --}}
+        </div>
 
         <div class="col-three conl md-five tab-full contact-social" data-aos="fade-up">
             <h4>Follow Us</h4>
