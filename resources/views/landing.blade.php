@@ -53,7 +53,7 @@
 
     <div class="row contact-infos">
 
-        <div class="col-five md-seven tab-full contact-address" data-aos="fade-up">
+{{--         <div class="col-five md-seven tab-full contact-address" data-aos="fade-up">
             <h4>Where to Find Us</h4>
 
             <p>
@@ -61,7 +61,7 @@
             Mountain View, California <br>
             94043  US
             </p>
-        </div>
+        </div> --}}
 
         <div class="col-three conl md-five tab-full contact-social" data-aos="fade-up">
             <h4>Follow Us</h4>
@@ -81,7 +81,7 @@
                 <li><a href="tel:{{ $landing->mobile }}">{{ $landing->mobile }}</a></li>
             </ul>
         </div>
-        <div class="row contact-bottom">
+{{--         <div class="row contact-bottom">
             <div class="col-five tab-full contact-button" data-aos="fade-up">
                 <a href="#about" class="smoothscroll btn btn-animatedbg">
                     Let's Talk 
@@ -99,7 +99,7 @@
             </div>
         </div> <!-- end contact-button -->
     </div> <!-- end contact-infos -->
-
+ --}}
 </section> <!-- end s-contact -->
 
 @endsection
