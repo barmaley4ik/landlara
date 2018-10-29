@@ -33,9 +33,17 @@
               "url": "{{ env('APP_URL') }}" 
               @endif
 }     
+
+        </script> 
+
         </script>  
 
+<<<<<<< HEAD
         <link rel="icon" href="{{ Storage::disk('public')->url($landing->favicon) }}" type="image/png" />
+=======
+
+        <link rel="icon" href="{{Storage::disk('public')->url($landing->favicon)}}" type="image/png" />
+>>>>>>> 42d5a82e74aa9893fb7a2639274d6ceda69a4635
     <!--    <link rel="shortcut icon" href="//upst.fwdcdn.com/favicon-v3.ico" type="'image/x-icon"/>-->
         <!-- For iPhone 4 Retina display: -->
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ Storage::disk('public')->url($landing->favicon) }}">
@@ -47,12 +55,86 @@
         
 
         <!-- Styles -->
+        <link href="{{ asset('css/base.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/vendor.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/mainlandin.css') }}" rel="stylesheet">
         <style>
         </style>
     </head>
+    <body id="top">
+        <!-- preloader
+        ================================================== -->
+        <div id="preloader">
+            <div id="loader" class="dots-jump">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <!-- header
+        ================================================== -->
+        <header class="s-header">
+
+            <div class="row">
+
+                <div class="header-logo">
+                    <a class="site-logo" href="/"><img src="{{ Voyager::image($landing->thumbnail('medium', 'logo')) }}" alt="Homepage"></a>
+                </div>
+                
+                <nav class="header-nav-wrap">
+                    {{ menu('landing', 'my_menu') }}
+                </nav> <!-- end header-nav-wrap -->
+                
+                <a class="header-menu-toggle" href="#0">
+                    <span class="header-menu-icon"></span>
+                </a>
+
+            </div> <!-- end row -->
+
+        </header> <!-- end s-header -->
+        <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+        <script src="{{ asset('js/modernizr.js') }}"></script>
+        <script src="{{ asset('js/pace.min.js') }}"></script>
+        <script src="{{ asset('js/plugins.js') }}"></script>
+        <script src="{{ asset('js/main.js') }}"></script>
+
     <body>
         @if ($agent->isMobile())
               echo 'mobile';
         @endif
+
+        <section id="home" class="s-home page-hero target-section" data-parallax="scroll" data-image-src="{{ asset('storage/hero-bg.jpg') }}" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
+
+        <div class="shadow-overlay"></div>
+
+        <div class="home-content">
+            <div class="row home-content__main">
+
+            </div> <!-- end home-content__main -->
+
+        </div> <!-- end home-content -->
+
+        <ul class="home-social">
+            <li>
+                <a href="{{ $landing->facebook }}"><i class="fab fa-facebook-f" aria-hidden="true"></i><span>Facebook</span></a>
+            </li>
+            <li>
+                <a href="{{ $landing->twitter }}"><i class="fab fa-twitter" aria-hidden="true"></i><span>Twiiter</span></a>
+            </li>
+            <li>
+                <a href="{{ $landing->instagramm }}"><i class="fab fa-instagram" aria-hidden="true"></i><span>Instagram</span></a>
+            </li>
+            <li>
+                <a href="{{ $landing->youtube }}"><i class="fab fa-youtube" aria-hidden="true"></i><span>YouTube</span></a>
+            </li>
+            <li>
+                <a href="{{ $landing->pinterest }}"><i class="fab fa-pinterest" aria-hidden="true"></i><span>Pinterest</span></a>
+            </li>
+            <li>
+                <a href="{{ $landing->googleplus }}"><i class="fab fa-google" aria-hidden="true"></i><span>Google</span></a>
+            </li>
+        </ul> <!-- end home-social -->
+
+    </section> <!-- end s-home -->
     </body>
 </html>
