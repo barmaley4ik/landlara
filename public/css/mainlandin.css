@@ -3559,7 +3559,7 @@ html.no-csstransitions .home-content__main {
   }
 
   .contact-number {
-    clear: both;
+    /*clear: both;*/
   }
 
 }
@@ -3711,7 +3711,7 @@ footer a:visited {
   transition: all 0.3s ease-in-out;
   background-repeat: no-repeat;
   background-position: center center;
-  background-image: url(../images/icons/icon-arrow-up.svg);
+  background-image: url(../storage/icons/icon-arrow-up.svg);
   background-size: 10px 16px;
 }
 
@@ -3807,3 +3807,6 @@ footer a:visited {
 }
 
 /*# sourceMappingURL=main.css.map */
+.conl {
+  float: left;
+}
