@@ -88,17 +88,12 @@
             </div> <!-- end row -->
 
         </header> <!-- end s-header -->
-        <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
-        <script src="{{ asset('js/modernizr.js') }}"></script>
-        <script src="{{ asset('js/pace.min.js') }}"></script>
-        <script src="{{ asset('js/plugins.js') }}"></script>
-        <script src="{{ asset('js/main.js') }}"></script>
-
-    <body>
+<div class="test" style="color: #fff"> 
+    {{ var_dump($agent->isMobile()) }}
         @if ($agent->isMobile())
               echo 'mobile';
         @endif
-
+</div>
         <section id="home" class="s-home page-hero target-section" data-parallax="scroll" data-image-src="{{ asset('storage/hero-bg.jpg') }}" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
 
         <div class="shadow-overlay"></div>
@@ -132,5 +127,10 @@
         </ul> <!-- end home-social -->
 
     </section> <!-- end s-home -->
+            <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+        <script src="{{ asset('js/modernizr.js') }}"></script>
+        <script src="{{ asset('js/pace.min.js') }}"></script>
+        <script src="{{ asset('js/plugins.js') }}"></script>
+        <script src="{{ asset('js/main.js') }}"></script>
     </body>
 </html>
