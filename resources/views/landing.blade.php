@@ -33,7 +33,11 @@
               "url": "{{ env('APP_URL') }}" 
               @endif
 }     
+
         </script> 
+
+        </script>  
+
 
         <link rel="icon" href="{{Storage::disk('public')->url($landing->favicon)}}" type="image/png" />
     <!--    <link rel="shortcut icon" href="//upst.fwdcdn.com/favicon-v3.ico" type="'image/x-icon"/>-->
@@ -95,5 +99,10 @@
         <script src="{{ asset('js/pace.min.js') }}"></script>
         <script src="{{ asset('js/plugins.js') }}"></script>
         <script src="{{ asset('js/main.js') }}"></script>
+
+    <body>
+        @if ($agent->isMobile())
+              echo 'mobile';
+        @endif
     </body>
 </html>
