@@ -33,7 +33,7 @@
               "url": "{{ env('APP_URL') }}" 
               @endif
 }     
-        </script>>  
+        </script> 
 
         <link rel="icon" href="{{Storage::disk('public')->url($landing->favicon)}}" type="image/png" />
     <!--    <link rel="shortcut icon" href="//upst.fwdcdn.com/favicon-v3.ico" type="'image/x-icon"/>-->
@@ -47,9 +47,53 @@
         
 
         <!-- Styles -->
+        <link href="{{ asset('css/base.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/vendor.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/mainlandin.css') }}" rel="stylesheet">
         <style>
         </style>
     </head>
-    <body>
+    <body id="top">
+        <!-- preloader
+        ================================================== -->
+        <div id="preloader">
+            <div id="loader" class="dots-jump">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <!-- header
+        ================================================== -->
+        <header class="s-header">
+
+            <div class="row">
+
+                <div class="header-logo">
+                    <a class="site-logo" href="/"><img src="{{ Voyager::image($landing->thumbnail('medium', 'logo')) }}" alt="Homepage"></a>
+                </div>
+                
+                <nav class="header-nav-wrap">
+                    <ul class="header-nav">
+                        <li class="current"><a class="smoothscroll"  href="#home" title="home">Home</a></li>
+                        <li><a class="smoothscroll"  href="#about" title="about">About</a></li>
+                        <li><a class="smoothscroll"  href="#services" title="services">Services</a></li>
+                        <li><a class="smoothscroll"  href="#works" title="works">Works</a></li>
+                        <li><a class="smoothscroll"  href="#contact" title="contact">Contact</a></li>
+                    </ul>
+                </nav> <!-- end header-nav-wrap -->
+                
+                <a class="header-menu-toggle" href="#0">
+                    <span class="header-menu-icon"></span>
+                </a>
+
+            </div> <!-- end row -->
+
+        </header> <!-- end s-header -->
+        <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+        <script src="{{ asset('js/modernizr.js') }}"></script>
+        <script src="{{ asset('js/pace.min.js') }}"></script>
+        <script src="{{ asset('js/plugins.js') }}"></script>
+        <script src="{{ asset('js/main.js') }}"></script>
     </body>
 </html>
