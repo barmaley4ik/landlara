@@ -36,14 +36,10 @@
 
         </script> 
 
-        </script>  
+  
 
-<<<<<<< HEAD
         <link rel="icon" href="{{ Storage::disk('public')->url($landing->favicon) }}" type="image/png" />
-=======
 
-        <link rel="icon" href="{{Storage::disk('public')->url($landing->favicon)}}" type="image/png" />
->>>>>>> 42d5a82e74aa9893fb7a2639274d6ceda69a4635
     <!--    <link rel="shortcut icon" href="//upst.fwdcdn.com/favicon-v3.ico" type="'image/x-icon"/>-->
         <!-- For iPhone 4 Retina display: -->
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ Storage::disk('public')->url($landing->favicon) }}">
