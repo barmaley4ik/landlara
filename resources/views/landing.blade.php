@@ -78,13 +78,7 @@
                 </div>
                 
                 <nav class="header-nav-wrap">
-                    <ul class="header-nav">
-                        <li class="current"><a class="smoothscroll"  href="#home" title="home">Home</a></li>
-                        <li><a class="smoothscroll"  href="#about" title="about">About</a></li>
-                        <li><a class="smoothscroll"  href="#services" title="services">Services</a></li>
-                        <li><a class="smoothscroll"  href="#works" title="works">Works</a></li>
-                        <li><a class="smoothscroll"  href="#contact" title="contact">Contact</a></li>
-                    </ul>
+                    {{ menu('landing', 'my_menu') }}
                 </nav> <!-- end header-nav-wrap -->
                 
                 <a class="header-menu-toggle" href="#0">
@@ -104,5 +98,39 @@
         @if ($agent->isMobile())
               echo 'mobile';
         @endif
+
+        <section id="home" class="s-home page-hero target-section" data-parallax="scroll" data-image-src="{{ asset('storage/hero-bg.jpg') }}" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
+
+        <div class="shadow-overlay"></div>
+
+        <div class="home-content">
+            <div class="row home-content__main">
+
+            </div> <!-- end home-content__main -->
+
+        </div> <!-- end home-content -->
+
+        <ul class="home-social">
+            <li>
+                <a href="{{ $landing->facebook }}"><i class="fab fa-facebook-f" aria-hidden="true"></i><span>Facebook</span></a>
+            </li>
+            <li>
+                <a href="{{ $landing->twitter }}"><i class="fab fa-twitter" aria-hidden="true"></i><span>Twiiter</span></a>
+            </li>
+            <li>
+                <a href="{{ $landing->instagramm }}"><i class="fab fa-instagram" aria-hidden="true"></i><span>Instagram</span></a>
+            </li>
+            <li>
+                <a href="{{ $landing->youtube }}"><i class="fab fa-youtube" aria-hidden="true"></i><span>YouTube</span></a>
+            </li>
+            <li>
+                <a href="{{ $landing->pinterest }}"><i class="fab fa-pinterest" aria-hidden="true"></i><span>Pinterest</span></a>
+            </li>
+            <li>
+                <a href="{{ $landing->googleplus }}"><i class="fab fa-google" aria-hidden="true"></i><span>Google</span></a>
+            </li>
+        </ul> <!-- end home-social -->
+
+    </section> <!-- end s-home -->
     </body>
 </html>
