@@ -84,6 +84,10 @@
                                 @endphp
                                 <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
                                     <label for="name">{{ $row->display_name }}</label>
+                                    @include('voyager::multilingual.input-hidden', [
+                                    '_field_name'  => $row->field,
+                                    '_field_trans' => get_field_translations($dataTypeContent, $row->field)
+                                    ])
                                     {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
                                 </div>
                             @endif
@@ -99,7 +103,7 @@
                         </div>
                         <div class="panel-body">
 						@php
-						$fieldrow = array('tel', 'mobile', 'mail');
+						$fieldrow = array('tel', 'mobile', 'mail', 'adress');
 						@endphp						
                         @foreach($dataTypeRows as $row)
                             @if (in_array($row->field, $fieldrow))
@@ -109,6 +113,13 @@
                                     @endphp
                                     <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
                                         <div for="name">{{ $row->display_name }}</div>
+                                        @if ($row->field=='adress')
+                                        @include('voyager::multilingual.input-hidden', [
+                                        '_field_name'  => 'adress',
+                                        '_field_trans' => get_field_translations($dataTypeContent, 'adress')
+                                        ])
+                                        @endif
+
                                         {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
                                     </div>
                                 @endif
@@ -296,6 +307,10 @@
                                     @endphp
                                     <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
                                         <label for="name">{{ $row->display_name }}</label>
+                                        @include('voyager::multilingual.input-hidden', [
+                                        '_field_name'  => $row->field,
+                                        '_field_trans' => get_field_translations($dataTypeContent, $row->field)
+                                        ])                                        
                                         {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
                                     </div>
                                 @endif
