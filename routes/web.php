@@ -20,8 +20,3 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
 Route::get('/{locale?}', 'LandingController@index')->name('landing');
-//Route::get('welcome/{locale}', function ($locale) {
- // App::setLocale($locale);
-
-  //
-//});

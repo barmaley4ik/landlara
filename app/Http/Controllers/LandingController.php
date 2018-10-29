@@ -10,18 +10,25 @@ use App\Onevideo;
 use Illuminate\Support\Facades\DB;
 use Jenssegers\Agent\Agent;
 use Illuminate\Support\Facades\App;
+use TCG\Voyager\Traits\Translatable;
 class LandingController extends Controller
 {
-	
+	use Translatable;
+
 	    public function index($locale=null)
     {
 			/*установка локали*/ 
-			if ($locale){
+			$permissionlacale = array('en', 'ru');
+			if(($locale) && (in_array($locale, $permissionlacale))){
 			App::setLocale($locale);
-			}   	
+			} else {
+				 return abort(404);
+			}  
+
 			$agent = new Agent();
 			/*страница лендинга*/
 			$landing = Mainland::withTranslation($locale)->active();
+			//$landing2 = Mainland::withTranslation('ru')->get();
   			if (isset($landing->facebook))
   				$socs[''] =$landing->facebook; 
 			if (isset($landing->twitter))
