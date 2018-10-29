@@ -8,13 +8,14 @@ use App\Blockslider;
 use App\Blockbaner;
 use App\Onevideo;
 use Illuminate\Support\Facades\DB;
+use Jenssegers\Agent\Agent;
 
 class LandingController extends Controller
 {
 	
 	    public function index()
     {
-			
+			$agent = new Agent();
 			/*страница лендинга*/
 			$landing = Mainland::active();
   			if (isset($landing->facebook))
@@ -64,7 +65,7 @@ class LandingController extends Controller
 			->select('onebaners.*','blockbaners.*')
             ->get();
 						
-            return view ('landing', compact('landing','socials' ,'video','sliders','baners'));
+            return view ('landing', compact('landing','socials' ,'video','sliders','baners', 'agent'));
 			//var_dump($baners); 
     }
 
