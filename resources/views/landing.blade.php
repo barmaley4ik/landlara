@@ -2,19 +2,13 @@
 
 @section('content')
 <div class="test" style="color: #fff"> 
-    {{-- {{ var_dump($agent->isMobile()) }} --}}
 </div>
     <section id="home" class="s-home page-hero target-section" data-parallax="scroll" data-image-src="{{ asset('storage/hero-bg.jpg') }}" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
-
     <div class="shadow-overlay"></div>
-
     <div class="home-content">
         <div class="row home-content__main">
-
         </div> <!-- end home-content__main -->
-
     </div> <!-- end home-content -->
-
     <ul class="home-social">
         <li>
             <a href="{{ $landing->facebook }}"><i class="fab fa-facebook-f" aria-hidden="true"></i><span>Facebook</span></a>
@@ -35,7 +29,6 @@
             <a href="{{ $landing->googleplus }}"><i class="fab fa-google" aria-hidden="true"></i><span>Google</span></a>
         </li>
     </ul> <!-- end home-social -->
-
 </section> <!-- end s-home -->
 
 <!-- contact
@@ -50,22 +43,17 @@
                 great. Drop us a line at <a href="mailto:#0">hello@stellar.com</a></h1>
         </div>
     </div>
-
     <div class="row contact-infos">
-
         <div class="col-five md-seven tab-full contact-address" data-aos="fade-up">
             <h4>Where to Find Us</h4>
-
             <p>
             1600 Amphitheatre Parkway <br>
             Mountain View, California <br>
             94043  US
             </p>
         </div>
-
         <div class="col-three conl md-five tab-full contact-social" data-aos="fade-up">
             <h4>Follow Us</h4>
-
             <ul class="contact-list">
                 <li><a href="{{ $landing->facebook }}">Facebook</a></li>
                 <li><a href="{{ $landing->twitter }}">Twitter</a></li>
@@ -74,7 +62,6 @@
         </div>
         <div class="col-four conl md-six tab-full contact-number" data-aos="fade-up">
             <h4>Contact Us</h4>
-
             <ul class="contact-list">
                 <li><a href="mailto:{{ $landing->mail }}">{{ $landing->mail }}</a></li>
                 <li><a href="tel:{{ $landing->tel }}">{{ $landing->tel }}</a></li>
