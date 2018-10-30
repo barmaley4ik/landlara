@@ -13,7 +13,7 @@
         <meta property="og:description" content="{{ $landing->getTranslatedAttribute('description', app()->getLocale() , 'ru') }}"/>
         <meta property="og:image" content="{{ Voyager::image($landing->thumbnail('cropped_fb', 'logo')) }}"/>
         <meta property="og:type" content="website"/>
-        <meta property="og:url" content= "{{ env('APP_URL') }}" />        
+        <meta property="og:url" content= "{{ URL::to('/') }}" />        
         <script type="application/ld+json">
             {
               "@context": "http://schema.org",
@@ -26,12 +26,12 @@
               "logo": "{{ Storage::disk('public')->url($landing->logo) }}",
               @endif
               @if (isset($socials))
-              "url": "{{ env('APP_URL') }}",
+              "url": "{{ URL::to('/') }}",
               "sameAs": [ 
 			  {!! $socials !!} 
                         ]
               @else
-              "url": "{{ env('APP_URL') }}" 
+              "url": "{{ URL::to('/') }}" 
               @endif
 }     
 
