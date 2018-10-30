@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\App;
 use TCG\Voyager\Traits\Translatable;
 use Voyager;
 use Storage;
+use Cohensive\Embed\Facades\Embed;
+
 class LandingController extends Controller
 {
 	use Translatable;
@@ -64,7 +66,8 @@ class LandingController extends Controller
 			/*видео блок*/
 			$video = Onevideo::where('id',  $landing->onevideo_id)->active();
 
-
+			$embed = Embed::make('https://www.youtube.com/watch?v=XGcX5wopq3M')->parseUrl();
+			// Will return Embed class if provider is found. Otherwie will return false - not found. No fancy errors for now.
 						
 			/*все дочерние слайдеры*/
 			$sliders = DB::table('mainland_blockslider')
@@ -94,7 +97,7 @@ class LandingController extends Controller
 			->select('onebaners.*','blockbaners.*')
             ->get();
 						
-            return view ('landing', compact('landing','socials' ,'landing_bg', 'color','video','sliders','baners', 'agent'));
+            return view ('landing', compact('landing','socials' ,'landing_bg', 'color','video', 'sliders','baners', 'agent'));
 			//var_dump($baners); 
     }
 

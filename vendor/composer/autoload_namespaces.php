@@ -14,6 +14,5 @@ return array(
     'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),
     'Doctrine\\Common\\Collections\\' => array($vendorDir . '/doctrine/collections/lib'),
     'Detection' => array($vendorDir . '/mobiledetect/mobiledetectlib/namespaced'),
-    'Cohensive\\Embed' => array($vendorDir . '/cohensive/embed/src'),
     'Barryvdh' => array($vendorDir . '/barryvdh/reflection-docblock/src'),
 );

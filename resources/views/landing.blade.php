@@ -35,7 +35,6 @@
 <!-- contact
 ================================================== -->
 <section id="contact" class="s-contact target-section">
-
     <div class="row section-header" data-aos="fade-up">
         <div class="col-full">
             <h3 data-num="05" class="subhead">Get In Touch</h3>
