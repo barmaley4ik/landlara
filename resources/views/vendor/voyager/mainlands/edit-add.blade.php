@@ -151,6 +151,31 @@
                             @endforeach
                         </div>
                     </div>
+                    <div class="panel panel panel-bordered panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="icon wb-image"></i> {{ __('voyager::generic.script') }}</h3>
+                            <div class="panel-actions">
+                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            @php
+                            $fieldrow = array('script');
+                            @endphp                     
+                            @foreach($dataTypeRows as $row)
+                                @if (in_array($row->field, $fieldrow))                      
+                                    @php
+                                        $options = json_decode($row->details);
+                                        $display_options = isset($options->display) ? $options->display : NULL;
+                                    @endphp
+                                    <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                        <div for="name">{{ $row->display_name }}</div>
+                                        {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="panel panel panel-bordered panel-warning">
