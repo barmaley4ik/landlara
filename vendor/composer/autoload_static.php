@@ -482,6 +482,13 @@ class ComposerStaticInit2f8842b33160bfc7e7f944cc276def4c
                 0 => __DIR__ . '/..' . '/mobiledetect/mobiledetectlib/namespaced',
             ),
         ),
+        'C' => 
+        array (
+            'Cohensive\\Embed' => 
+            array (
+                0 => __DIR__ . '/..' . '/cohensive/embed/src',
+            ),
+        ),
         'B' => 
         array (
             'Barryvdh' => 
@@ -624,6 +631,12 @@ class ComposerStaticInit2f8842b33160bfc7e7f944cc276def4c
         'Carbon\\Laravel\\ServiceProvider' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Laravel/ServiceProvider.php',
         'Carbon\\Translator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Translator.php',
         'CategoriesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/CategoriesTableSeeder.php',
+        'Cohensive\\Embed\\DataFetcher' => __DIR__ . '/..' . '/cohensive/embed/src/Cohensive/Embed/DataFetcher.php',
+        'Cohensive\\Embed\\Embed' => __DIR__ . '/..' . '/cohensive/embed/src/Cohensive/Embed/Embed.php',
+        'Cohensive\\Embed\\EmbedServiceProvider' => __DIR__ . '/..' . '/cohensive/embed/src/Cohensive/Embed/EmbedServiceProvider.php',
+        'Cohensive\\Embed\\Exceptions\\MissingConfigurationException' => __DIR__ . '/..' . '/cohensive/embed/src/Cohensive/Embed/Exceptions/MissingConfigurationException.php',
+        'Cohensive\\Embed\\Facades\\Embed' => __DIR__ . '/..' . '/cohensive/embed/src/Cohensive/Embed/Facades/Embed.php',
+        'Cohensive\\Embed\\Factory' => __DIR__ . '/..' . '/cohensive/embed/src/Cohensive/Embed/Factory.php',
         'Composer\\Autoload\\AutoloadGenerator' => __DIR__ . '/..' . '/composer/composer/src/Composer/Autoload/AutoloadGenerator.php',
         'Composer\\Autoload\\ClassLoader' => __DIR__ . '/..' . '/composer/composer/src/Composer/Autoload/ClassLoader.php',
         'Composer\\Autoload\\ClassMapGenerator' => __DIR__ . '/..' . '/composer/composer/src/Composer/Autoload/ClassMapGenerator.php',

@@ -1,16 +1,7 @@
 @extends('layouts.header')
 
 @section('content')
-@if ($landing->type_background == 1)
-    @php
-        $back = 'data-parallax=scroll data-image-src='. Storage::disk('public')->url($landing->image_background)  . ' data-natural-width=3000 data-natural-height=2000 data-position-y=center'
-    @endphp
-@elseif($landing->type_background == 0)
-    @php
-        $color =  $landing->color_background;
-    @endphp
-@endif
-<section id="home" class="s-home page-hero target-section" @isset($back) {{ $back }} @endisset >
+<section id="home" class="s-home page-hero target-section" @isset($landing_bg) data-parallax=scroll data-image-src='{{ $landing_bg }}' data-natural-width=3000 data-natural-height=2000 data-position-y=center @endisset >
     <div class="shadow-overlay"></div>
     <div class="home-content" @isset($color) style="background-color: {!! $color !!} @endisset">
         <div class="row home-content__main">

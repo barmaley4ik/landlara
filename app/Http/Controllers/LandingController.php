@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 use Jenssegers\Agent\Agent;
 use Illuminate\Support\Facades\App;
 use TCG\Voyager\Traits\Translatable;
+use Voyager;
+use Storage;
 class LandingController extends Controller
 {
 	use Translatable;
@@ -18,8 +20,8 @@ class LandingController extends Controller
 	    public function index($locale=null)
     {
 			/*установка локали*/ 
-			$permissionlacale = array('en', 'ru');
-			if(($locale) && (in_array($locale, $permissionlacale))){
+			$permissionlacale = array('en', 'ru','');
+			if((($locale) || ($locale==''))&& (in_array($locale, $permissionlacale))){
 			App::setLocale($locale);
 			} else {
 				 return abort(404);
@@ -44,8 +46,24 @@ class LandingController extends Controller
 			//$socials = '';
 			if (isset($socs))
 			$socials = sprintf('"%s"', implode('", "', ($socs ?? '')));
+			/*бекграунд лендинга*/
+			
+			if ($landing->type_background==1){
+			if ($agent->isPhone())
+				$landing_bg= Voyager::image($landing->thumbnail('small', 'image_background'));
+			
+			if ($agent->isTablet())
+				$landing_bg= Voyager::image($landing->thumbnail('medium', 'image_background'));
+			
+			if ($agent->isDesktop())
+				$landing_bg= Storage::disk('public')->url($landing->image_background);
+						
+				} elseif($landing->type_background == 0)
+    		        $color =  $landing->color_background;
+
 			/*видео блок*/
 			$video = Onevideo::where('id',  $landing->onevideo_id)->active();
+
 
 						
 			/*все дочерние слайдеры*/
@@ -76,7 +94,7 @@ class LandingController extends Controller
 			->select('onebaners.*','blockbaners.*')
             ->get();
 						
-            return view ('landing', compact('landing','socials' ,'video','sliders','baners', 'agent'));
+            return view ('landing', compact('landing','socials' ,'landing_bg', 'color','video','sliders','baners', 'agent'));
 			//var_dump($baners); 
     }
 
