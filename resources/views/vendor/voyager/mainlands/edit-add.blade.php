@@ -343,6 +343,25 @@
     								@endif
     							@endforeach
                             </div>
+                            @php
+                        $fieldrow = array('type_background', 'image_background', 'video_background', 'color_background');
+                        @endphp                     
+                        @foreach($dataTypeRows as $row)
+                            @if (in_array($row->field, $fieldrow))
+                                @php
+                                    $options = json_decode($row->details);
+                                    $display_options = isset($options->display) ? $options->display : NULL;
+                                @endphp
+                                <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                    <label for="name">{{ $row->display_name }}</label>
+                                    @include('voyager::multilingual.input-hidden', [
+                                    '_field_name'  => $row->field,
+                                    '_field_trans' => get_field_translations($dataTypeContent, $row->field)
+                                    ])
+                                    {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                </div>
+                            @endif
+                        @endforeach
                         </div>
                     </div>
                 <button type="submit" class="btn btn-primary pull-right">
