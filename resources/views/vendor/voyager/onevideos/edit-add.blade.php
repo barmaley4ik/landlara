@@ -51,7 +51,7 @@
             position: relative;
         }
         .but {
-            width: 100%;
+            width: 98%;
             float: right;
             display: inline-flex;
             justify-content: flex-end;
