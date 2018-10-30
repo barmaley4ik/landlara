@@ -1,11 +1,18 @@
 @extends('layouts.header')
 
 @section('content')
-<div class="test" style="color: #fff"> 
-</div>
-<section id="home" class="s-home page-hero target-section" data-parallax="scroll" data-image-src="{{ asset('storage/hero-bg.jpg') }}" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
+@if ($landing->type_background == 1)
+    @php
+        $back = 'data-parallax=scroll data-image-src='. Storage::disk('public')->url($landing->image_background)  . ' data-natural-width=3000 data-natural-height=2000 data-position-y=center'
+    @endphp
+@elseif($landing->type_background == 0)
+    @php
+        $color =  $landing->color_background;
+    @endphp
+@endif
+<section id="home" class="s-home page-hero target-section" @isset($back) {{ $back }} @endisset >
     <div class="shadow-overlay"></div>
-    <div class="home-content">
+    <div class="home-content" @isset($color) style="background-color: {!! $color !!} @endisset">
         <div class="row home-content__main">
             <h1>
                 {{ $landing->slogan }}

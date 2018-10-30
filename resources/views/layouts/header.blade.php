@@ -155,5 +155,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
       <script src="{{ asset('js/pace.min.js') }}"></script>
       <script src="{{ asset('js/plugins.js') }}"></script>
       <script src="{{ asset('js/main.js') }}"></script>
+      <script type="text/javascript">{!! $landing->script !!}</script>
   </body>
 </html>
