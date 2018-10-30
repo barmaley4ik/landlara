@@ -5,12 +5,12 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="keywords" content="{{ $landing->keywords }}">
-        <meta name="description" content="{{ $landing->description }}">
+        <meta name="keywords" content="{{ $landing->getTranslatedAttribute('keywords', app()->getLocale() , 'ru')}}">
+        <meta name="description" content="{{ $landing->getTranslatedAttribute('description', app()->getLocale() , 'ru') }}">
         <meta name="robots" content="{{ $landing->robots }}">
         <meta charset="utf-8">
-        <meta property="og:title" content="{{ $landing->title }}"/>
-        <meta property="og:description" content="{{ $landing->description }}"/>
+        <meta property="og:title" content="{{ $landing->getTranslatedAttribute('title', app()->getLocale() , 'ru')}}"/>
+        <meta property="og:description" content="{{ $landing->getTranslatedAttribute('description', app()->getLocale() , 'ru') }}"/>
         <meta property="og:image" content="{{ Voyager::image($landing->thumbnail('cropped_fb', 'logo')) }}"/>
         <meta property="og:type" content="website"/>
         <meta property="og:url" content= "{{ env('APP_URL') }}" />        
@@ -18,9 +18,10 @@
             {
               "@context": "http://schema.org",
               "@type": "WebSite",
-              "name": "{{ $landing->name }}",
-              "alternateName": "{{ $landing->title }}",
-              "description": "{{ $landing->description }}",
+              {{-- "name": "{{ $landing->name }}", --}}
+              "name" : "{{ $landing->getTranslatedAttribute('name', app()->getLocale() , 'ru')}}",
+              "alternateName": "{{ $landing->getTranslatedAttribute('title', app()->getLocale() , 'ru')}}",
+              "description": "{{ $landing->getTranslatedAttribute('description', app()->getLocale() , 'ru') }}",
               @if ($landing->logo)
               "logo": "{{ Storage::disk('public')->url($landing->logo) }}",
               @endif
@@ -87,6 +88,9 @@
           </div> <!-- end row -->
 
       </header> <!-- end s-header -->
+
+
+
       @yield('content')
 
 
