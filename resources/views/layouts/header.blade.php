@@ -73,9 +73,9 @@
 
           <div class="row">
               <div class="header-logo">
-                  <a class="site-logo" href="/"><img src="{{ Voyager::image($landing->thumbnail('medium', 'logo')) }}" title="{{$landing->title_image}}" alt="{{$landing->alt_image}}"></a>
+                  <a class="site-logo" href="/"><img src="{{ Voyager::image($landing->thumbnail('cropped_logo', 'logo')) }}" title="{{$landing->title_image}}" alt="{{$landing->alt_image}}"></a>
               </div>
-              
+          
               <nav class="header-nav-wrap">
                   {{ menu('landing', 'my_menu') }}
               </nav> <!-- end header-nav-wrap -->
