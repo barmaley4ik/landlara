@@ -127,6 +127,9 @@
                     </div>
                 </div>
                 <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary pull-right" style="z-index: 23;position: relative; right: 5px;">
+                        @if(isset($dataTypeContent->id)){{ __('voyager::generic.new') }}@else <i class="icon wb-plus-circle"></i> {{ __('voyager::generic.new') }} @endif
+                    </button>
                     <div class="panel panel panel-bordered panel-warning">
                         <div class="panel-body">
                             @foreach($dataTypeRows as $row)
@@ -212,9 +215,6 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary pull-right">
-                    @if(isset($dataTypeContent->id)){{ __('voyager::generic.new') }}@else <i class="icon wb-plus-circle"></i> {{ __('voyager::generic.new') }} @endif
-                </button>
             </div>
         </form>
     </div>
