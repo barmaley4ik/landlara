@@ -47,6 +47,20 @@
             overflow-x: hidden;
             min-height: 100%;
         }
+        .but {
+            width: 100%;
+            float: right;
+            display: inline-flex;
+            justify-content: flex-end;
+            vertical-align: middle;
+            text-align: center;
+            position: absolute;
+            left: 0;
+            padding-top: 28px;
+        }
+        .but > span {
+            margin-left: 15px; 
+        }
     </style>
 @stop
 
@@ -55,7 +69,14 @@
         <i class="{{ $dataType->icon }}"></i>
         {{ __('voyager::generic.'.(isset($dataTypeContent->id) ? 'edit' : 'add')).' '.$dataType->display_name_singular }}
     </h1>
-    @include('voyager::multilingual.language-selector')
+    <div class="but">
+        <button type="submit" onclick="$('form.form-edit-add').submit();" class="btn btn-primary" style="margin-right: 20px;" >
+            @if(isset($dataTypeContent->id)){{ __('voyager::generic.new') }}@else <i class="icon wb-plus-circle"></i> {{ __('voyager::generic.new') }} @endif
+        </button>
+        <span>
+        @include('voyager::multilingual.language-selector')
+        </span>
+    </div>
 @stop
 
 @section('content')
@@ -144,9 +165,6 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <button type="submit" class="btn btn-primary pull-right" style="z-index: 23;position: relative; right: 5px;">
-                        @if(isset($dataTypeContent->id)){{ __('voyager::generic.new') }}@else <i class="icon wb-plus-circle"></i> {{ __('voyager::generic.new') }} @endif
-                    </button>
                     <div class="panel panel panel-bordered panel-warning">
                         <div class="panel-body">
                             @foreach($dataTypeRows as $row)
