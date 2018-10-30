@@ -3,10 +3,13 @@
 @section('content')
 <div class="test" style="color: #fff"> 
 </div>
-    <section id="home" class="s-home page-hero target-section" data-parallax="scroll" data-image-src="{{ asset('storage/hero-bg.jpg') }}" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
+<section id="home" class="s-home page-hero target-section" data-parallax="scroll" data-image-src="{{ asset('storage/hero-bg.jpg') }}" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
     <div class="shadow-overlay"></div>
     <div class="home-content">
         <div class="row home-content__main">
+            <h1>
+                {{ $landing->slogan }}
+            </h1>
         </div> <!-- end home-content__main -->
     </div> <!-- end home-content -->
     <ul class="home-social">
@@ -47,9 +50,7 @@
         <div class="col-five md-seven tab-full contact-address" data-aos="fade-up">
             <h4>Where to Find Us</h4>
             <p>
-            1600 Amphitheatre Parkway <br>
-            Mountain View, California <br>
-            94043  US
+                {{ $landing->adress }}
             </p>
         </div>
         <div class="col-three conl md-five tab-full contact-social" data-aos="fade-up">
