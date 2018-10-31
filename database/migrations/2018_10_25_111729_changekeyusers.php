@@ -17,6 +17,10 @@ class Changekeyusers extends Migration
             $table->dropForeign(['role_id']);
           //  $table->integer('role_id')->change();
         });
+        Schema::table('user_roles', function (Blueprint $table) {
+            $table->dropForeign(['role_id']);
+            //  $table->integer('role_id')->change();
+        });
     }
 
     /**
@@ -28,6 +32,10 @@ class Changekeyusers extends Migration
     {
             Schema::table('users', function (Blueprint $table) {
            // $table->unsignedInteger('role_id')->change();
+            $table->foreign('role_id')->references('id')->on('roles');
+        });
+        Schema::table('user_roles', function (Blueprint $table) {
+            // $table->unsignedInteger('role_id')->change();
             $table->foreign('role_id')->references('id')->on('roles');
         });
     }

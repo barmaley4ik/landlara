@@ -45,13 +45,13 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root' =>'../../upl1',
         ],
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'root' => '../../upl1',//storage_path('app/public'),
+            'url' => 'http://images.landing.loc/',
             'visibility' => 'public',
         ],
 

@@ -47,6 +47,20 @@
             overflow-x: hidden;
             min-height: 100%;
         }
+        .but {
+            width: 98%;
+            float: right;
+            display: inline-flex;
+            justify-content: flex-end;
+            vertical-align: middle;
+            text-align: center;
+            position: absolute;
+            left: 0;
+            padding-top: 28px;
+        }
+        .but > span {
+            margin-left: 15px; 
+        }
     </style>
 @stop
 
@@ -55,9 +69,15 @@
         <i class="{{ $dataType->icon }}"></i>
         {{ __('voyager::generic.'.(isset($dataTypeContent->id) ? 'edit' : 'add')).' '.$dataType->display_name_singular }}
     </h1>
-    @include('voyager::multilingual.language-selector')
+    <div class="but">
+        <button type="submit" onclick="$('form.form-edit-add').submit();" class="btn btn-primary" style="margin-right: 20px;" >
+            @if(isset($dataTypeContent->id)){{ __('voyager::generic.new') }}@else <i class="icon wb-plus-circle"></i> {{ __('voyager::generic.new') }} @endif
+        </button>
+        <span>
+        @include('voyager::multilingual.language-selector')
+        </span>
+    </div>
 @stop
-
 @section('content')
     @php
         $dataTypeRows = $dataType->{(isset($dataTypeContent->id) ? 'editRows' : 'addRows' )};
@@ -164,6 +184,21 @@
                                     @endif
                                 @endforeach
                             </div>
+                            @php
+                            $fieldrow = array('title_image', 'alt_image');
+                            @endphp                     
+                            @foreach($dataTypeRows as $row)
+                                @if (in_array($row->field, $fieldrow))                          
+                                    @php
+                                        $options = json_decode($row->details);
+                                        $display_options = isset($options->display) ? $options->display : NULL;
+                                    @endphp
+                                    <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                        <label for="name">{{ $row->display_name }}</label>
+                                        {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                    </div>
+                                @endif
+                            @endforeach
                         </div>
                     </div>
                     <div class="panel panel panel-bordered panel-warning">
@@ -197,9 +232,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary pull-right">
-                    @if(isset($dataTypeContent->id)){{ __('voyager::generic.new') }}@else <i class="icon wb-plus-circle"></i> {{ __('voyager::generic.new') }} @endif
-                </button>
+
             </div>
         </form>
     </div>
@@ -267,6 +300,9 @@
                 $('#confirm_delete_modal').modal('hide');
             });
             $('[data-toggle="tooltip"]').tooltip();
+            $('button[type="submit"]').on('click', function(){
+                 $('form.form-edit-add').submit();
+            })
         });
     </script>
 @stop

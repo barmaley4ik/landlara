@@ -6,23 +6,92 @@ use Illuminate\Http\Request;
 use App\Mainland;
 use App\Blockslider;
 use App\Blockbaner;
+use App\Onevideo;
 use Illuminate\Support\Facades\DB;
+use Jenssegers\Agent\Agent;
+use Illuminate\Support\Facades\App;
+use TCG\Voyager\Traits\Translatable;
+use Voyager;
+use Storage;
+use Merujan99\LaravelVideoEmbed\Facades\LaravelVideoEmbed;
 
 class LandingController extends Controller
 {
-	
-	    public function index()
+	use Translatable;
+
+	    public function index($locale=null)
     {
-			
+			/*установка локали*/ 
+			$permissionlacale = array('en', 'ru','');
+			if((($locale) || ($locale==''))&& (in_array($locale, $permissionlacale))){
+			App::setLocale($locale);
+			} else {
+				 return abort(404);
+			}  
+
+			$agent = new Agent();
 			/*страница лендинга*/
-			//$landing = Mainland::where('status',1)->firstOrFail();
-			$landing = Mainland::active();
+			$landing = Mainland::withTranslation($locale)->active();
+			//$landing2 = Mainland::withTranslation('ru')->get();
+  			if (isset($landing->facebook))
+  				$socs[''] =$landing->facebook; 
+			if (isset($landing->twitter))
+  				$socs[''] =$landing->twitter; 
+			if (isset($landing->instagramm))
+  				$socs[''] =$landing->instagramm;   			  		
+			if (isset($landing->youtube))
+  				$socs[''] =$landing->youtube; 
+  			if (isset($landing->pinterest))
+  				$socs[''] =$landing->pinterest; 
+  			if (isset($landing->googleplus))
+  				$socs[''] =$landing->googleplus; 
+			//$socials = '';
+			if (isset($socs))
+			$socials = sprintf('"%s"', implode('", "', ($socs ?? '')));
+			/*бекграунд лендинга*/
+			
+			if ($landing->type_background==1){
+			if ($agent->isPhone())
+				$landing_bg= Voyager::image($landing->thumbnail('small', 'image_background'));
+			
+			if ($agent->isTablet())
+				$landing_bg= Voyager::image($landing->thumbnail('medium', 'image_background'));
+			
+			if ($agent->isDesktop())
+				$landing_bg= Storage::disk('public')->url($landing->image_background);
+						
+				} elseif($landing->type_background == 0)
+    		        $color =  $landing->color_background;
+
+			/*видео блок*/
+			$video = Onevideo::where('id',  $landing->onevideo_id)->active();
+			 $url = "https://www.youtube.com/watch?v=XGcX5wopq3M";
+
+			//Optional array of website names, if present any websites not in the array will result in false being returned by the parser
+			$whitelist = ['YouTube', 'Vimeo'];
+
+			//Optional parameters to be appended to embed
+			$params = [
+			    'autoplay' => 1,
+			    'loop' => 1
+			  ];
+
+			//Optional attributes for embed container
+			$attributes = [
+			  'type' => null,
+			  'class' => 'iframe-class',
+			  'data-html5-parameter' => true
+			];
+
+			$lvideo = LaravelVideoEmbed::parse($url, $whitelist);
+
+						
 			/*все дочерние слайдеры*/
-			$sliders = DB::table('mainland_blocksliders')
-            ->leftJoin('blocksliders', 'mainland_blocksliders.blockslider_id', '=', 'blocksliders.id')
+			$sliders = DB::table('mainland_blockslider')
+            ->leftJoin('blocksliders', 'mainland_blockslider.blockslider_id', '=', 'blocksliders.id')
 			->leftJoin('oneslider_blockslider', 'blocksliders.id', '=', 'oneslider_blockslider.blockslider_id')
 			->leftJoin('onesliders', 'oneslider_blockslider.oneslider_id', '=', 'onesliders.id')
-			->where('mainland_blocksliders.mainland_id', 2)
+			->where('mainland_blockslider.mainland_id', 2)
 			->where('blocksliders.status', 1)
 			->orderBy('blocksliders.sort_order')
 			->orderBy('blocksliders.id')
@@ -45,11 +114,8 @@ class LandingController extends Controller
 			->select('onebaners.*','blockbaners.*')
             ->get();
 						
-			
-			//$sliders2= Blockslider::find(2)->sliders;
-			var_dump($landing);
-/* 			var_dump($sliders);
-			var_dump($baners); */
+            return view ('landing', compact('landing','socials' ,'landing_bg', 'color','video', 'lvideo','sliders','baners', 'agent'));
+			//var_dump($baners); 
     }
 
 }

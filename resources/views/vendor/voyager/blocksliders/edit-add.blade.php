@@ -47,6 +47,20 @@
             overflow-x: hidden;
             min-height: 100%;
         }
+        .but {
+            width: 98%;
+            float: right;
+            display: inline-flex;
+            justify-content: flex-end;
+            vertical-align: middle;
+            text-align: center;
+            position: absolute;
+            left: 0;
+            padding-top: 28px;
+        }
+        .but > span {
+            margin-left: 15px; 
+        }
     </style>
 @stop
 
@@ -55,7 +69,14 @@
         <i class="{{ $dataType->icon }}"></i>
         {{ __('voyager::generic.'.(isset($dataTypeContent->id) ? 'edit' : 'add')).' '.$dataType->display_name_singular }}
     </h1>
-    @include('voyager::multilingual.language-selector')
+    <div class="but">
+        <button type="submit" onclick="$('form.form-edit-add').submit();" class="btn btn-primary" style="margin-right: 20px;" >
+            @if(isset($dataTypeContent->id)){{ __('voyager::generic.new') }}@else <i class="icon wb-plus-circle"></i> {{ __('voyager::generic.new') }} @endif
+        </button>
+        <span>
+        @include('voyager::multilingual.language-selector')
+        </span>
+    </div>
 @stop
 
 @section('content')
@@ -149,10 +170,32 @@
                         <div class="panel-body">
                             @foreach($dataTypeRows as $row)
                                 @if($row->field == 'status')
-                                    <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-                                        <label for="name">{{ $row->display_name }}</label>
-                                        {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
-                                    </div>
+                                    {{--<div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>--}}
+                                        {{--<label for="name">{{ $row->display_name }}</label>--}}
+                                        {{--{!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}--}}
+                                    {{--</div>--}}
+                                    @php
+                                        $options = json_decode($row->details);
+                                        $display_options = isset($options->display) ? $options->display : NULL;
+                                    @endphp
+                                    @if ($options && isset($options->formfields_custom))
+                                        @include('voyager::formfields.custom.' . $options->formfields_custom)
+                                    @else
+                                        <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                            {{ $row->slugify }}
+                                            <label for="name">{{ $row->display_name }}</label>
+                                            @include('voyager::multilingual.input-hidden-bread-edit-add')
+                                            @if($row->type == 'relationship')
+                                                @include('voyager::formfields.relationship')
+                                            @else
+                                                {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                            @endif
+
+                                            @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
+                                                {!! $after->handle($row, $dataType, $dataTypeContent) !!}
+                                            @endforeach
+                                        </div>
+                                    @endif
                                 @endif
                             @endforeach
                             @foreach($dataTypeRows as $row)
