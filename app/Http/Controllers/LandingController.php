@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\App;
 use TCG\Voyager\Traits\Translatable;
 use Voyager;
 use Storage;
-use Merujan99\LaravelVideoEmbed\Facades\LaravelVideoEmbed;
+
 
 class LandingController extends Controller
 {
