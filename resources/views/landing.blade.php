@@ -66,14 +66,16 @@
                 <li><a href="tel:{{ $landing->mobile }}">{{ $landing->mobile }}</a></li>
             </ul>
         </div>
- 
+        <iframe id="ytplayer" type="text/html" width="640" height="360"
+                src="http://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&origin=http://landing.loc&showinfo=0"
+                frameborder="0"/>
 @php
 	echo $lvideo ;
 @endphp
 {{--         <div class="row contact-bottom">
             <div class="col-five tab-full contact-button" data-aos="fade-up">
                 <a href="#about" class="smoothscroll btn btn-animatedbg">
-                    Let's Talk 
+                    Let's Talk
                 </a>
             </div>
 
