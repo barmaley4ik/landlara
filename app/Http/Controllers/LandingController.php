@@ -50,7 +50,7 @@ class LandingController extends Controller
 			$socials = sprintf('"%s"', implode('", "', ($socs ?? '')));
 			/*бекграунд лендинга*/
 			
-			if ($landing->type_background==1){
+			if ($landing->type_background==2){
 			if ($agent->isPhone())
 				$landing_bg= Voyager::image($landing->thumbnail('small', 'image_background'));
 			
@@ -60,12 +60,13 @@ class LandingController extends Controller
 			if ($agent->isDesktop())
 				$landing_bg= Storage::disk('public')->url($landing->image_background);
 						
-				} elseif($landing->type_background == 0)
+				} elseif($landing->type_background == 1)
     		        $color =  $landing->color_background;
 
 			/*видео блок*/
 			$video = Onevideo::where('id',  $landing->onevideo_id)->active();
 			 $url = "https://www.youtube.com/watch?v=XGcX5wopq3M";
+//        $url = "https://images.landing.loc/videoplayback.mp4";
 
 			//Optional array of website names, if present any websites not in the array will result in false being returned by the parser
 			$whitelist = ['YouTube', 'Vimeo'];
@@ -84,7 +85,6 @@ class LandingController extends Controller
 			];
 
 			$lvideo = LaravelVideoEmbed::parse($url, $whitelist);
-
 						
 			/*все дочерние слайдеры*/
 			$sliders = DB::table('mainland_blockslider')
