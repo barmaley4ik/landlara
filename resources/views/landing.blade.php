@@ -75,9 +75,6 @@
                 <li><a href="tel:{{ $landing->mobile }}">{{ $landing->mobile }}</a></li>
             </ul>
         </div>
-@php
-	echo $lvideo ;
-@endphp
 {{--         <div class="row contact-bottom">
             <div class="col-five tab-full contact-button" data-aos="fade-up">
                 <a href="#about" class="smoothscroll btn btn-animatedbg">

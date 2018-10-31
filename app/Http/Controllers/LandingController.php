@@ -63,28 +63,6 @@ class LandingController extends Controller
 				} elseif($landing->type_background == 1)
     		        $color =  $landing->color_background;
 
-			/*видео блок*/
-			$video = Onevideo::where('id',  $landing->onevideo_id)->active();
-			 $url = "https://www.youtube.com/watch?v=XGcX5wopq3M";
-//        $url = "https://images.landing.loc/videoplayback.mp4";
-
-			//Optional array of website names, if present any websites not in the array will result in false being returned by the parser
-			$whitelist = ['YouTube', 'Vimeo'];
-
-			//Optional parameters to be appended to embed
-			$params = [
-			    'autoplay' => 1,
-			    'loop' => 1
-			  ];
-
-			//Optional attributes for embed container
-			$attributes = [
-			  'type' => null,
-			  'class' => 'iframe-class',
-			  'data-html5-parameter' => true
-			];
-
-			$lvideo = LaravelVideoEmbed::parse($url, $whitelist);
 						
 			/*все дочерние слайдеры*/
 			$sliders = DB::table('mainland_blockslider')
@@ -114,7 +92,7 @@ class LandingController extends Controller
 			->select('onebaners.*','blockbaners.*')
             ->get();
 						
-            return view ('landing', compact('landing','socials' ,'landing_bg', 'color','video', 'lvideo','sliders','baners', 'agent'));
+            return view ('landing', compact('landing','socials' ,'landing_bg', 'color','sliders','baners', 'agent'));
 			//var_dump($baners); 
     }
 
