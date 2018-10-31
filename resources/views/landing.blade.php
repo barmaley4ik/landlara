@@ -37,8 +37,18 @@
 <section id="contact" class="s-contact target-section">
     <div class="row section-header" data-aos="fade-up">
         <div class="col-full">
-            <h3 data-num="05" class="subhead">Get In Touch</h3>
+            <h3 data-num="04" class="subhead">About As</h3>
         </div>
+    </div>
+    <div class="row about-infos">
+        <video src="{{ Storage::disk('public')->url('/videoplayback.mp4') }}" poster="{{ Storage::disk('public')->url('/hero-bg.jpg') }}" controls width="400" height="700" style="width: 100%;">
+            <source src="{{ Storage::disk('public')->url('/videoplayback.mp4') }}" type="video/mp4"><!-- MP4 для Safari, IE9, iPhone, iPad, Android, и Windows Phone 7 -->
+            {{--<source src="video.webm" type="video/webm"><!-- WebM/VP8 для Firefox4, Opera, и Chrome -->--}}
+            {{--<source src="video.ogv" type="video/ogg"><!-- Ogg/Vorbis для старых версий браузеров Firefox и Opera -->--}}
+            {{--<object data="video.swf" type="application/x-shockwave-flash"><!-- добавляем видеоконтент для устаревших браузеров, в которых нет поддержки элемента video -->--}}
+                {{--<param name="movie" value="video.swf">--}}
+            {{--</object>--}}
+        </video>
     </div>
 </section>
 <!-- contact
