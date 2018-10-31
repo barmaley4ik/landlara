@@ -32,6 +32,15 @@
     </ul> <!-- end home-social -->
 </section> <!-- end s-home -->
 
+<!-- about
+================================================== -->
+<section id="contact" class="s-contact target-section">
+    <div class="row section-header" data-aos="fade-up">
+        <div class="col-full">
+            <h3 data-num="05" class="subhead">Get In Touch</h3>
+        </div>
+    </div>
+</section>
 <!-- contact
 ================================================== -->
 <section id="contact" class="s-contact target-section">
@@ -66,9 +75,6 @@
                 <li><a href="tel:{{ $landing->mobile }}">{{ $landing->mobile }}</a></li>
             </ul>
         </div>
-        <iframe id="ytplayer" type="text/html" width="640" height="360"
-                src="http://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&origin=http://landing.loc&showinfo=0"
-                frameborder="0"/>
 @php
 	echo $lvideo ;
 @endphp
