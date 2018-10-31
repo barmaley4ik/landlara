@@ -112,84 +112,16 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">
                                 <i class="voyager-character"></i> {{ __('voyager::onevideo.caption') }}
-                                {{--<span class="panel-desc"> {{ __('voyager::onevideo.title_sub') }}</span>--}}
+
                             </h3>
-                            {{--<div class="panel-actions">--}}
-                                {{--<a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>--}}
-                            {{--</div>--}}
                         </div>
                         <div class="panel-body">
                             <div class="caption">
-                            @include('voyager::multilingual.input-hidden', [
-                                '_field_name'  => 'caption',
-                                '_field_trans' => get_field_translations($dataTypeContent, 'caption')
-                            ])
-                            <input type="text" class="form-control" id="caption" name="caption" placeholder="{{ __('voyager::generic.caption') }}" value="@if(isset($dataTypeContent->caption)){{ $dataTypeContent->caption }}@endif">
-                            </div>
-                            <br>
-                            <div class="link">
-                                <label class="title">{{ __('voyager::generic.video') }}</label>
-                                <br>
-                                <input type="text" class="form-control" id="linkvideo" name="linkvideo" placeholder="{{ __('voyager::generic.video') }}" value="@if(isset($dataTypeContent->linkvideo)){{ $dataTypeContent->linkvideo }}@endif">
-                            </div>
-                            <br>
-                            @foreach($dataTypeRows as $row)
-                                @if($row->field == 'typevideo')
-                                    <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-                                        <label for="name">{{ $row->display_name }}</label>
-                                        {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
-                                    </div>
-                                @endif
-                            @endforeach
-                        </div>
-                    </div>
-
-                    <div class="panel panel-bordered panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="icon wb-image"></i> {{ __('voyager::generic.button') }}</h3>
-                            <div class="panel-actions">
-                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
-                            </div>
-                        </div>
-
-                        <!-- ### button ### -->
-                        <div class="panel-body">
-                            @foreach($dataTypeRows as $row)
-                                @if($row->field == 'button')
-                                    @php
-                                        $options = json_decode($row->details);
-                                        $display_options = isset($options->display) ? $options->display : NULL;
-                                    @endphp
-                                    @if ($options && isset($options->formfields_custom))
-                                        @include('voyager::formfields.custom.' . $options->formfields_custom)
-                                    @else
-                                        <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-                                            {{ $row->slugify }}
-                                            <label for="name">{{ $row->display_name }}</label>
-                                            @include('voyager::multilingual.input-hidden-bread-edit-add')
-                                            @if($row->type == 'relationship')
-                                                @include('voyager::formfields.relationship')
-                                            @else
-                                                {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
-                                            @endif
-
-                                            @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
-                                                {!! $after->handle($row, $dataType, $dataTypeContent) !!}
-                                            @endforeach
-                                        </div>
-                                    @endif
-                                @endif
-                            @endforeach
-                            <!-- ### caption_bottom ### -->
-                            <div class="caption_bottom">
-                                <label class="title">
-                                    {{ __('voyager::onevideo.caption_bottom') }}
-                                </label>
                                 @include('voyager::multilingual.input-hidden', [
-                                    '_field_name'  => 'caption_button',
-                                    '_field_trans' => get_field_translations($dataTypeContent, 'caption_button')
+                                    '_field_name'  => 'caption',
+                                    '_field_trans' => get_field_translations($dataTypeContent, 'caption')
                                 ])
-                                <input type="text" class="form-control" id="caption_button" name="caption_button" placeholder="{{ __('voyager::generic.caption') }}" value="@if(isset($dataTypeContent->caption_button)){{ $dataTypeContent->caption_button }}@endif">
+                                <input type="text" class="form-control" id="caption" name="caption" placeholder="{{ __('voyager::generic.caption') }}" value="@if(isset($dataTypeContent->caption)){{ $dataTypeContent->caption }}@endif">
                             </div>
                         </div>
                     </div>
@@ -207,35 +139,50 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="panel panel-bordered panel-primary">
+                </div>
+                <div class="col-md-12">
+                    <div class="panel panel panel-bordered panel-primary">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="icon wb-image"></i> {{ __('voyager::generic.image') }}</h3>
-                            <div class="panel-actions">
-                                <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
-                            </div>
+                            <h3 class="panel-title"><i class="icon wb-image"></i> {{ __('voyager::generic.video_block') }}</h3>
+                            {{--<div class="panel-actions">--}}
+                                {{--<a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>--}}
+                            {{--</div>--}}
                         </div>
                         <div class="panel-body">
-                            <div class="image">
-                                @if(isset($dataTypeContent->image))
-                                    <img src="{{ filter_var($dataTypeContent->image, FILTER_VALIDATE_URL) ? $dataTypeContent->image : Voyager::image( $dataTypeContent->image ) }}" style="width:100%" />
-                                @endif
-                                <input type="file" name="image">
+                            <div class="col-md-8">
+                                @php
+                                    $fieldrow = array('linkvideo', 'typevideo');
+                                @endphp
+                                @foreach($dataTypeRows as $row)
+                                    @if (in_array($row->field, $fieldrow))
+                                        @php
+                                            $options = json_decode($row->details);
+                                            $display_options = isset($options->display) ? $options->display : NULL;
+                                        @endphp
+                                        <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                            <label for="name">{{ $row->display_name }}</label>
+                                            {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                        </div>
+                                    @endif
+                                @endforeach
                             </div>
-                            @php
-                            $fieldrow = array('title_image', 'alt_image');
-                            @endphp                     
-                            @foreach($dataTypeRows as $row)
-                                @if (in_array($row->field, $fieldrow))                          
-                                    @php
-                                        $options = json_decode($row->details);
-                                        $display_options = isset($options->display) ? $options->display : NULL;
-                                    @endphp
-                                    <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-                                        <label for="name">{{ $row->display_name }}</label>
-                                        {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
-                                    </div>
-                                @endif
-                            @endforeach
+                            <div class="image col-md-4">
+                                @php
+                                    $fieldrow = array('image');
+                                @endphp
+                                @foreach($dataTypeRows as $row)
+                                    @if (in_array($row->field, $fieldrow))
+                                        @php
+                                            $options = json_decode($row->details);
+                                            $display_options = isset($options->display) ? $options->display : NULL;
+                                        @endphp
+                                        <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                            <label for="name">{{ $row->display_name }}</label>
+                                            {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
