@@ -124,7 +124,7 @@
                         </div>
                         <div class="panel-body">
 						@php
-						$fieldrow = array('tel', 'mobile', 'mail', 'adress');
+						$fieldrow = array('tel', 'mobile', 'mail', 'adress','skype', 'time_work');
 						@endphp						
                         @foreach($dataTypeRows as $row)
                             @if (in_array($row->field, $fieldrow))
