@@ -58,10 +58,13 @@ class LandingController extends Controller
 				$landing_bg= Voyager::image($landing->thumbnail('medium', 'image_background'));
 			
 			if ($agent->isDesktop())
-				$landing_bg= Storage::disk('public')->url($landing->image_background);
-						
-				} elseif($landing->type_background == 1)
-    		        $color =  $landing->color_background;
+				$landing_bg= Storage::disk('public')->url($landing->image_background);			
+			} elseif($landing->type_background == 1) {
+		        $color =  $landing->color_background;
+			} else {
+				$video = $landing->video_background;
+			}
+
 
 						
 			/*все дочерние слайдеры*/
@@ -92,7 +95,7 @@ class LandingController extends Controller
 			->select('onebaners.*','blockbaners.*')
             ->get();
 						
-            return view ('landing', compact('landing','socials' ,'landing_bg', 'color','sliders','baners', 'agent'));
+            return view ('landing', compact('landing','socials' ,'landing_bg','video', 'color' ,'sliders' ,'baners', 'agent'));
 			//var_dump($baners); 
     }
 

@@ -1,6 +1,7 @@
 @extends('layouts.header')
 
 @section('content')
+@if (($landing->type_background == 2) || ($landing->type_background == 1))
 <section id="home" class="s-home page-hero target-section" @isset($landing_bg) data-parallax=scroll data-image-src='{{ $landing_bg }}' data-natural-width=3000 data-natural-height=2000 data-position-y=center @endisset >
     <div class="shadow-overlay"></div>
     <div class="home-content" @isset($color) style="background-color: {!! $color !!} @endisset">
@@ -31,24 +32,50 @@
         </li>
     </ul> <!-- end home-social -->
 </section> <!-- end s-home -->
+@else
+<section id="home" class="s-home page-hero target-section" >
+    <div class="shadow-overlay"></div>
+    <div class="home-content" style="display: block;padding-bottom: 0px;">
+        <video muted loop="1" autoplay="autoplay" src="{{ $landing->video_background }}" style="width: 100vw!important;height: auto!important">
+        </video>
+    </div> <!-- end home-content -->
+    <ul class="home-social">
+        <li>
+            <a href="{{ $landing->facebook }}"><i class="fab fa-facebook-f" aria-hidden="true"></i><span>Facebook</span></a>
+        </li>
+        <li>
+            <a href="{{ $landing->twitter }}"><i class="fab fa-twitter" aria-hidden="true"></i><span>Twiiter</span></a>
+        </li>
+        <li>
+            <a href="{{ $landing->instagramm }}"><i class="fab fa-instagram" aria-hidden="true"></i><span>Instagram</span></a>
+        </li>
+        <li>
+            <a href="{{ $landing->youtube }}"><i class="fab fa-youtube" aria-hidden="true"></i><span>YouTube</span></a>
+        </li>
+        <li>
+            <a href="{{ $landing->pinterest }}"><i class="fab fa-pinterest" aria-hidden="true"></i><span>Pinterest</span></a>
+        </li>
+        <li>
+            <a href="{{ $landing->googleplus }}"><i class="fab fa-google" aria-hidden="true"></i><span>Google</span></a>
+        </li>
+    </ul> <!-- end home-social -->
+</section> <!-- end s-home -->
+@endif
 
 <!-- about
 ================================================== -->
-<section id="contact" class="s-contact target-section">
+<section id="about" class="s-contact target-section">
     <div class="row section-header" data-aos="fade-up">
         <div class="col-full">
-            <h3 data-num="04" class="subhead">About As</h3>
+            <h3 data-num="04" class="subhead">Video</h3>
         </div>
     </div>
-    <div class="row about-infos">
-        <video src="{{ Storage::disk('public')->url('/videoplayback.mp4') }}" poster="{{ Storage::disk('public')->url('/hero-bg.jpg') }}" controls width="400" height="700" style="width: 100%;">
-            <source src="{{ Storage::disk('public')->url('/videoplayback.mp4') }}" type="video/mp4"><!-- MP4 для Safari, IE9, iPhone, iPad, Android, и Windows Phone 7 -->
-            {{--<source src="video.webm" type="video/webm"><!-- WebM/VP8 для Firefox4, Opera, и Chrome -->--}}
-            {{--<source src="video.ogv" type="video/ogg"><!-- Ogg/Vorbis для старых версий браузеров Firefox и Opera -->--}}
-            {{--<object data="video.swf" type="application/x-shockwave-flash"><!-- добавляем видеоконтент для устаревших браузеров, в которых нет поддержки элемента video -->--}}
-                {{--<param name="movie" value="video.swf">--}}
-            {{--</object>--}}
-        </video>
+    <div class="row contact-infos">
+        <div class="col-full md-seven tab-full contact-address" data-aos="fade-up">
+            <iframe id="ytplayer" type="text/html" width="720" height="405"
+src="https://www.youtube.com/embed/APIY8x5gy7w?autoplay=1&controls=0&fs=0&playsinline=1&mute=1&enablejsapi=1"
+frameborder="0" allowfullscreen></iframe>
+
     </div>
 </section>
 <!-- contact
@@ -68,6 +95,12 @@
             <p>
                 {{ $landing->adress }}
             </p>
+            <div class="md-seven tab-full contact-address" data-aos="fade-up">
+                <h4>Time work</h4>
+            <p>
+                {{ $landing->time_work }}
+            </p>
+            </div>
         </div>
         <div class="col-three conl md-five tab-full contact-social" data-aos="fade-up">
             <h4>Follow Us</h4>
@@ -83,6 +116,7 @@
                 <li><a href="mailto:{{ $landing->mail }}">{{ $landing->mail }}</a></li>
                 <li><a href="tel:{{ $landing->tel }}">{{ $landing->tel }}</a></li>
                 <li><a href="tel:{{ $landing->mobile }}">{{ $landing->mobile }}</a></li>
+                <li><a href="{{ $landing->skype }}">{{ $landing->skype }}</a></li>
             </ul>
         </div>
 {{--         <div class="row contact-bottom">
