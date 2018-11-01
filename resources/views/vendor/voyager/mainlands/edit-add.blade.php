@@ -219,8 +219,6 @@
                                     <div class="form-group">
                                     <label for="default_role">{{ __('voyager::generic.menu_default') }}</label>
                                     @php
-                                        $dataTypeRows = $dataType->{(isset($dataTypeContent->id) ? 'editRows' : 'addRows' )};
-
                                         $row     = $dataTypeRows->where('field', 'mainland_hasone_menu_relationship')->first();
                                         $options = json_decode($row->details);
                                     @endphp
