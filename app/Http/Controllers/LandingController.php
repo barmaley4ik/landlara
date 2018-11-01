@@ -60,7 +60,8 @@ class LandingController extends Controller
 				} elseif($landing->type_background == 1)
     		        $color=  $landing->color_background;
     		      else{
-    		        $video=	Storage::disk('public')->url($landing->video_background);
+    		      	//json_decode($landing->video_background)->download_link)
+    		        $video=	Storage::disk('public')->url(json_decode($landing->video_background)[0]->download_link);
     		    }
     		
     		        
