@@ -50,19 +50,19 @@ class LandingController extends Controller
 			$socials = sprintf('"%s"', implode('", "', ($socs ?? '')));
 			/*бекграунд лендинга*/
 			
-			$video='';
 			if ($landing->type_background==2){
-			if ($agent->isPhone()):
+			if ($agent->isPhone())
 				$landing_bg= Voyager::image($landing->thumbnail('small', 'image_background'));
-			if ($agent->isTablet()):
+			if ($agent->isTablet())
 				$landing_bg= Voyager::image($landing->thumbnail('medium', 'image_background'));
-			if ($agent->isDesktop()):
+			if ($agent->isDesktop())
 				$landing_bg= Storage::disk('public')->url($landing->image_background);
-				} elseif($landing->type_background == 1):
+				} elseif($landing->type_background == 1)
     		        $color=  $landing->color_background;
-    		      else: 
+    		      else{
     		        $video=	Storage::disk('public')->url($landing->video_background);
-    		endif;
+    		    }
+    		
     		        
 
 						
