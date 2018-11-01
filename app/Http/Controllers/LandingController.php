@@ -67,7 +67,7 @@ class LandingController extends Controller
 			}
 						
 				} elseif($landing->type_background == 1)
-    		        $color =  $landing->color_background;
+    		        $color =  $landing->color_background; 
 
 						
 			/*все дочерние слайдеры*/
