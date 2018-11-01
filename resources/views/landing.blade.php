@@ -35,10 +35,12 @@
 @else
 <section id="home" class="s-home page-hero target-section" >
     <div class="shadow-overlay"></div>
+    @if(isset ($video))
     <div class="home-content" style="display: block;padding-bottom: 0px;">
         <video muted loop="1" autoplay="autoplay" src="{{ $video }}" style="width: 100vw!important;height: auto!important">
         </video>
     </div> <!-- end home-content -->
+    @endif
     <ul class="home-social">
         <li>
             <a href="{{ $landing->facebook }}"><i class="fab fa-facebook-f" aria-hidden="true"></i><span>Facebook</span></a>
@@ -71,7 +73,7 @@
         </div>
     </div>
     <div class="row about-infos">
-        {{ var_dump($video) }}
+        
         <video src="{{ Storage::disk('public')->url('/videoplayback.mp4') }}" {{-- poster="{{ $landing_bg }}" --}} controls width="1024" height="683" style="width: 100%;">
             <source src="{{ Storage::disk('public')->url('/videoplayback.mp4') }}" type="video/mp4"><!-- MP4 для Safari, IE9, iPhone, iPad, Android, и Windows Phone 7 -->
             {{--<source src="video.webm" type="video/webm"><!-- WebM/VP8 для Firefox4, Opera, и Chrome -->--}}
