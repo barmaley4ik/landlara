@@ -1,7 +1,7 @@
 @extends('layouts.header')
 
 @section('content')
-<section id="home" class="s-home page-hero target-section" @isset($landing_bg) data-parallax=scroll data-image-src='{{ $video_bg }}' data-natural-width=3000 data-natural-height=2000 data-position-y=center @endisset >
+<section id="home" class="s-home page-hero target-section" @isset($landing_bg) data-parallax=scroll data-image-src='{{ $landing_bg }}' data-natural-width=3000 data-natural-height=2000 data-position-y=center @endisset >
     <div class="shadow-overlay"></div>
     <div class="home-content" @isset($color) style="background-color: {!! $color !!} @endisset">
         <div class="row home-content__main">
@@ -41,7 +41,7 @@
         </div>
     </div>
     <div class="row about-infos">
-        <video src="{{ Storage::disk('public')->url('/videoplayback.mp4') }}" poster="{{ $video_bg }}" controls width="1024" height="683" style="width: 100%;">
+        <video src="{{ Storage::disk('public')->url('/videoplayback.mp4') }}" poster="{{ $landing_bg }}" controls width="1024" height="683" style="width: 100%;">
             <source src="{{ Storage::disk('public')->url('/videoplayback.mp4') }}" type="video/mp4"><!-- MP4 для Safari, IE9, iPhone, iPad, Android, и Windows Phone 7 -->
             {{--<source src="video.webm" type="video/webm"><!-- WebM/VP8 для Firefox4, Opera, и Chrome -->--}}
             {{--<source src="video.ogv" type="video/ogg"><!-- Ogg/Vorbis для старых версий браузеров Firefox и Opera -->--}}

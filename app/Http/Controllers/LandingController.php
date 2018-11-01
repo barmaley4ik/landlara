@@ -32,7 +32,7 @@ class LandingController extends Controller
 			$agent = new Agent();
 			/*страница лендинга*/
 			$landing = Mainland::withTranslation($locale)->active();
-			//$landing2 = Mainland::withTranslation('ru')->get();
+			
   			if (isset($landing->facebook))
   				$socs[''] =$landing->facebook; 
 			if (isset($landing->twitter))
@@ -50,24 +50,20 @@ class LandingController extends Controller
 			$socials = sprintf('"%s"', implode('", "', ($socs ?? '')));
 			/*бекграунд лендинга*/
 			
+			$video='';
 			if ($landing->type_background==2){
-			if ($agent->isPhone()){
+			if ($agent->isPhone()):
 				$landing_bg= Voyager::image($landing->thumbnail('small', 'image_background'));
-				$video_bg = Voyager::image($landing->thumbnail('videobg_mobile', 'image_background'));
-			}
-			
-			if ($agent->isTablet()){
+			if ($agent->isTablet()):
 				$landing_bg= Voyager::image($landing->thumbnail('medium', 'image_background'));
-				$video_bg = Voyager::image($landing->thumbnail('videobg_tablet', 'image_background'));
-			}
-			
-			if ($agent->isDesktop()){
+			if ($agent->isDesktop()):
 				$landing_bg= Storage::disk('public')->url($landing->image_background);
-				$video_bg = Storage::disk('public')->url($landing->image_background);
-			}
-						
-				} elseif($landing->type_background == 1)
-    		        $color =  $landing->color_background; 
+				} elseif($landing->type_background == 1):
+    		        $color=  $landing->color_background;
+    		      else: 
+    		        $video=	Storage::disk('public')->url($landing->video_background);
+    		endif;
+    		        
 
 						
 			/*все дочерние слайдеры*/
@@ -98,7 +94,7 @@ class LandingController extends Controller
 			->select('onebaners.*','blockbaners.*')
             ->get();
 						
-            return view ('landing', compact('landing','socials' ,'landing_bg', 'video_bg' ,'color','sliders','baners', 'agent'));
+            return view ('landing', compact('landing','socials' ,'landing_bg', 'color', 'video','sliders','baners', 'agent'));
 			//var_dump($baners); 
     }
 
