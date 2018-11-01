@@ -215,6 +215,18 @@
                                         {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
                                     </div>
                                 @endif
+                                @if($row->field == 'mainland_hasone_menu_relationship')
+                                    <div class="form-group">
+                                    <label for="default_role">{{ __('voyager::generic.menu_default') }}</label>
+                                    @php
+                                        $dataTypeRows = $dataType->{(isset($dataTypeContent->id) ? 'editRows' : 'addRows' )};
+
+                                        $row     = $dataTypeRows->where('field', 'mainland_hasone_menu_relationship')->first();
+                                        $options = json_decode($row->details);
+                                    @endphp
+                                    @include('voyager::formfields.relationship')
+                                	</div>
+                                @endif
                             @endforeach
                         </div>
                     </div>
