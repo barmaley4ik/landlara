@@ -167,22 +167,31 @@
                 <div class="col-md-4">
                     <div class="panel panel panel-bordered panel-warning">
                         <div class="panel-body">
+                            @php
+                            $fieldrow = array('status', 'sort_order');
+                            @endphp
                             @foreach($dataTypeRows as $row)
-                                @if($row->field == 'status')
+                                @if(in_array($row->field, $fieldrow))
+                                    @php
+                                        $options = json_decode($row->details);
+                                        $display_options = isset($options->display) ? $options->display : NULL;
+                                    @endphp
                                     <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
                                         <label for="name">{{ $row->display_name }}</label>
                                         {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
                                     </div>
                                 @endif
+                                @if($row->field == 'blockbaner_belongsto_menu_item_relationship')
+                                    <div class="form-group">
+                                    <label for="default_role">{{ __('voyager::generic.menu_default') }}</label>
+                                    @php
+                                        $row     = $dataTypeRows->where('field', 'blockbaner_belongsto_menu_item_relationship')->first();
+                                        $options = json_decode($row->details);
+                                    @endphp
+                                    @include('voyager::formfields.relationship')
+                                    </div>
+                                @endif
                             @endforeach
-                                @foreach($dataTypeRows as $row)
-                                    @if($row->field == 'sort_order')
-                                        <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-                                            <label for="name">{{ $row->display_name }}</label>
-                                            {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
-                                        </div>
-                                    @endif
-                                @endforeach
                         </div>
                     </div>
                 </div>
