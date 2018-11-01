@@ -71,7 +71,6 @@
         </div>
     </div>
     <div class="row about-infos">
-        {{ var_dump($video) }}
         <video src="{{ Storage::disk('public')->url('/videoplayback.mp4') }}" {{-- poster="{{ $landing_bg }}" --}} controls width="1024" height="683" style="width: 100%;">
             <source src="{{ Storage::disk('public')->url('/videoplayback.mp4') }}" type="video/mp4"><!-- MP4 для Safari, IE9, iPhone, iPad, Android, и Windows Phone 7 -->
             {{--<source src="video.webm" type="video/webm"><!-- WebM/VP8 для Firefox4, Opera, и Chrome -->--}}
@@ -90,7 +89,7 @@
             <h3 data-num="05" class="subhead">Get In Touch</h3>
             <h1 class="display-1 display-1--light">Have an idea or an epic project in mind? Talk to 
                 us. Let’s work together and make something 
-                great. Drop us a line at <a href="mailto:#0">hello@stellar.com</a></h1>
+                great. Drop us a line at <a href="mailto:{{ $landing->mail }}">{{ $landing->mail }}</a></h1>
         </div>
     </div>
     <div class="row contact-infos">
@@ -99,6 +98,12 @@
             <p>
                 {{ $landing->adress }}
             </p>
+            <div class="md-seven tab-full contact-address" data-aos="fade-up">
+                <h4>Time work</h4>
+            <p>
+                {{ $landing->time_work }}
+            </p>
+            </div>
         </div>
         <div class="col-three conl md-five tab-full contact-social" data-aos="fade-up">
             <h4>Follow Us</h4>

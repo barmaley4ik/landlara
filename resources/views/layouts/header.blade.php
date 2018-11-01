@@ -53,7 +53,7 @@
 
       <!-- Styles -->
       <link href="{{ asset('css/base.css') }}" rel="stylesheet">
-      <link href="{{ asset('css/vendor.css') }}" rel="stylesheet">
+      {{-- <link href="{{ asset('css/vendor.css') }}" rel="stylesheet"> --}}
       <link href="{{ asset('css/mainlandin.css') }}" rel="stylesheet">
       <style>
       </style>
@@ -110,51 +110,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             <a class="smoothscroll" title="Back to Top" href="#top"></a>
         </div>
     </footer>
-
-
-    <!-- photoswipe background
-    ================================================== -->
-    <div aria-hidden="true" class="pswp" role="dialog" tabindex="-1">
-
-        <div class="pswp__bg"></div>
-        <div class="pswp__scroll-wrap">
-
-            <div class="pswp__container">
-                <div class="pswp__item"></div>
-                <div class="pswp__item"></div>
-                <div class="pswp__item"></div>
-            </div>
-
-            <div class="pswp__ui pswp__ui--hidden">
-                <div class="pswp__top-bar">
-                    <div class="pswp__counter"></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button> <button class="pswp__button pswp__button--share" title=
-                    "Share"></button> <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button> <button class="pswp__button pswp__button--zoom" title=
-                    "Zoom in/out"></button>
-                    <div class="pswp__preloader">
-                        <div class="pswp__preloader__icn">
-                            <div class="pswp__preloader__cut">
-                                <div class="pswp__preloader__donut"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                    <div class="pswp__share-tooltip"></div>
-                </div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button> <button class="pswp__button pswp__button--arrow--right" title=
-                "Next (arrow right)"></button>
-                <div class="pswp__caption">
-                    <div class="pswp__caption__center"></div>
-                </div>
-            </div>
-
-        </div>
-
-    </div><!-- end photoSwipe background -->
-      <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
-      <script src="{{ asset('js/modernizr.js') }}"></script>
-      <script src="{{ asset('js/pace.min.js') }}"></script>
-      <script src="{{ asset('js/plugins.js') }}"></script>
-      <script src="{{ asset('js/main.js') }}"></script>
-      <script type="text/javascript">{!! $landing->script !!}</script>
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('js/modernizr.js') }}"></script>
+    {{-- <script src="{{ asset('js/pace.min.js') }}"></script> --}}
+    <script src="{{ asset('js/plugins.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    <script type="text/javascript">{!! $landing->script !!}</script>
   </body>
 </html>
