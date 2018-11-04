@@ -15,6 +15,7 @@ class NotAdminMenuScope implements Scope
    * @param  \Illuminate\Database\Eloquent\Model  $model
    * @return void
    */
+   /*добавить сохранение в базе, какое меню админское, и вытягивать из бд, потом подставлять в скоп*/
   public function apply(Builder $builder, Model $model)
   {
     $builder->where('id', '<>', 1);
