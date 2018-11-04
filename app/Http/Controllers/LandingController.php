@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\App;
 use TCG\Voyager\Traits\Translatable;
 use Voyager;
 use Storage;
-
+use Response;
 
 class LandingController extends Controller
 {
@@ -94,8 +94,9 @@ class LandingController extends Controller
 			->orderBy('onebaners.id')
 			->select('onebaners.*','blockbaners.*')
             ->get();
-						
+			 		
             return view ('landing', compact('landing','socials' ,'landing_bg', 'color', 'video','sliders','baners', 'agent'));
+//return response()->view('landing', compact('landing','socials' ,'landing_bg', 'color', 'video','sliders','baners', 'agent'))->header('Content-Type', $type);
 			//var_dump($baners); 
     }
 
