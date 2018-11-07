@@ -108,7 +108,6 @@
                                 </ul>
                             </div>
                         @endif
-
                         <div class="panel-heading">
                             <h3 class="panel-title">
                                 <i class="voyager-character"></i> {{ __('voyager::onevideo.caption') }}
@@ -121,7 +120,7 @@
                                     '_field_name'  => 'caption',
                                     '_field_trans' => get_field_translations($dataTypeContent, 'caption')
                                 ])
-                                <input type="text" class="form-control" id="caption" name="caption" placeholder="{{ __('voyager::generic.caption') }}" value="@if(isset($dataTypeContent->caption)){{ $dataTypeContent->caption }}@endif">
+                                <input type="text" class="form-control caption" id="caption" name="caption" placeholder="{{ __('voyager::generic.caption') }}" value="@if(isset($dataTypeContent->caption)){{ $dataTypeContent->caption }}@endif">
                             </div>
                         </div>
                     </div>
@@ -131,7 +130,7 @@
                         <div class="panel-body">
                             @foreach($dataTypeRows as $row)
                                 @if($row->field == 'status')
-                                <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                <div class="form-group {{ $row->field }} @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
                                     <label for="name">{{ $row->display_name }}</label>
                                     {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
                                 </div>
@@ -159,7 +158,7 @@
                                             $options = json_decode($row->details);
                                             $display_options = isset($options->display) ? $options->display : NULL;
                                         @endphp
-                                        <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                        <div class="form-group {{ $row->field }} @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
                                             <label for="name">{{ $row->display_name }}</label>
                                             {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
                                         </div>
@@ -176,7 +175,7 @@
                                             $options = json_decode($row->details);
                                             $display_options = isset($options->display) ? $options->display : NULL;
                                         @endphp
-                                        <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                        <div class="form-group {{ $row->field }} @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
                                             <label for="name">{{ $row->display_name }}</label>
                                             {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
                                         </div>

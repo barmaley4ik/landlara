@@ -103,7 +103,7 @@
                                     $options = json_decode($row->details);
                                     $display_options = isset($options->display) ? $options->display : NULL;
                                 @endphp
-                                <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                <div class="form-group {{ $row->field }} @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
                                     <label for="name">{{ $row->display_name }}</label>
                                     @include('voyager::multilingual.input-hidden', [
                                     '_field_name'  => $row->field,
@@ -132,7 +132,7 @@
                                         $options = json_decode($row->details);
                                         $display_options = isset($options->display) ? $options->display : NULL;
                                     @endphp
-                                    <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                    <div class="form-group {{ $row->field }} @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
                                         <div for="name">{{ $row->display_name }}</div>
                                         @if ($row->field=='adress')
                                         @include('voyager::multilingual.input-hidden', [
@@ -164,7 +164,7 @@
                                         $options = json_decode($row->details);
                                         $display_options = isset($options->display) ? $options->display : NULL;
                                     @endphp
-                                    <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                    <div class="form-group {{ $row->field }} @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
                                         <div for="name">{{ $row->display_name }}</div>
                                         {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
                                     </div>
@@ -189,7 +189,7 @@
                                         $options = json_decode($row->details);
                                         $display_options = isset($options->display) ? $options->display : NULL;
                                     @endphp
-                                    <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                    <div class="form-group {{ $row->field }} @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
                                         <div for="name">{{ $row->display_name }}</div>
                                         {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
                                     </div>
@@ -210,13 +210,13 @@
                                         $options = json_decode($row->details);
                                         $display_options = isset($options->display) ? $options->display : NULL;
                                     @endphp
-                                    <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                    <div class="form-group {{ $row->field }} @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
                                         <label for="name">{{ $row->display_name }}</label>
                                         {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
                                     </div>
                                 @endif
                                 @if($row->field == 'mainland_hasone_menu_relationship')
-                                    <div class="form-group">
+                                    <div class="form-group {{ $row->field }}">
                                     <label for="default_role">{{ __('voyager::generic.menu_default') }}</label>
                                     @php
                                         $row     = $dataTypeRows->where('field', 'mainland_hasone_menu_relationship')->first();
@@ -236,8 +236,11 @@
                             </div>
                         </div>
                         <div class="panel-body">
+                            @php
+                            $fieldrow = array('mainland_belongstomany_blockslider_relationship', 'mainland_belongstomany_blockbaner_relationship', 'mainland_belongsto_onevideo_relationship');
+                            @endphp                     
                             @foreach($dataTypeRows as $row)
-                                @if($row->field == 'mainland_belongstomany_blockslider_relationship')
+                                @if (in_array($row->field, $fieldrow))          
                                     @php
                                         $options = json_decode($row->details);
                                         $display_options = isset($options->display) ? $options->display : NULL;
@@ -245,59 +248,7 @@
                                     @if ($options && isset($options->formfields_custom))
                                         @include('voyager::formfields.custom.' . $options->formfields_custom)
                                     @else
-                                        <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-                                            {{ $row->slugify }}
-                                            <label for="name">{{ $row->display_name }}</label>
-                                            @include('voyager::multilingual.input-hidden-bread-edit-add')
-                                            @if($row->type == 'relationship')
-                                                @include('voyager::formfields.relationship')
-                                            @else
-                                                {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
-                                            @endif
-
-                                            @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
-                                                {!! $after->handle($row, $dataType, $dataTypeContent) !!}
-                                            @endforeach
-                                        </div>
-                                    @endif
-                                @endif
-                            @endforeach
-                            @foreach($dataTypeRows as $row)
-                                @if($row->field == 'mainland_belongstomany_blockbaner_relationship')
-									@php
-										$options = json_decode($row->details);
-										$display_options = isset($options->display) ? $options->display : NULL;
-									@endphp
-									@if ($options && isset($options->formfields_custom))
-										@include('voyager::formfields.custom.' . $options->formfields_custom)
-									@else
-										<div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-											{{ $row->slugify }}
-											<label for="name">{{ $row->display_name }}</label>
-											@include('voyager::multilingual.input-hidden-bread-edit-add')
-											@if($row->type == 'relationship')
-												@include('voyager::formfields.relationship')
-											@else
-												{!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
-											@endif
-
-											@foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
-												{!! $after->handle($row, $dataType, $dataTypeContent) !!}
-											@endforeach
-										</div>
-									@endif
-                                @endif
-                            @endforeach
-                            @foreach($dataTypeRows as $row)
-                                @if($row->field == 'mainland_belongsto_onevideo_relationship')
-                                    @php
-                                        $options = json_decode($row->details);
-                                        $display_options = isset($options->display) ? $options->display : NULL;
-                                    @endphp
-                                    @if ($options && isset($options->formfields_custom))
-                                        @include('voyager::formfields.custom.' . $options->formfields_custom)
-                                    @else
-                                        <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                        <div class="form-group {{ $row->field }} @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
                                             {{ $row->slugify }}
                                             <label for="name">{{ $row->display_name }}</label>
                                             @include('voyager::multilingual.input-hidden-bread-edit-add')
@@ -324,36 +275,8 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            <div class="logo">
-                                @foreach($dataTypeRows as $row)
-                                    @if($row->field == 'logo')
-                                        @php
-                                            $options = json_decode($row->details);
-                                            $display_options = isset($options->display) ? $options->display : NULL;
-                                        @endphp
-                                        @if ($options && isset($options->formfields_custom))
-                                            @include('voyager::formfields.custom.' . $options->formfields_custom)
-                                        @else
-                                            <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-                                                {{ $row->slugify }}
-                                                <label for="name">{{ $row->display_name }}</label>
-                                                @include('voyager::multilingual.input-hidden-bread-edit-add')
-                                                @if($row->type == 'relationship')
-                                                    @include('voyager::formfields.relationship')
-                                                @else
-                                                    {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
-                                                @endif
-
-                                                @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
-                                                    {!! $after->handle($row, $dataType, $dataTypeContent) !!}
-                                                @endforeach
-                                            </div>
-                                        @endif
-                                    @endif
-                                @endforeach
-                            </div>
                             @php
-                            $fieldrow = array('title_image', 'alt_image');
+                            $fieldrow = array('logo','title_image', 'alt_image', 'favicon','type_background', 'image_background', 'video_background', 'color_background');
                             @endphp                     
                             @foreach($dataTypeRows as $row)
                                 @if (in_array($row->field, $fieldrow))                          
@@ -361,68 +284,29 @@
                                         $options = json_decode($row->details);
                                         $display_options = isset($options->display) ? $options->display : NULL;
                                     @endphp
-                                    <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-                                        <label for="name">{{ $row->display_name }}</label>
-                                        @include('voyager::multilingual.input-hidden', [
-                                        '_field_name'  => $row->field,
-                                        '_field_trans' => get_field_translations($dataTypeContent, $row->field)
-                                        ])                                        
-                                        {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
-                                    </div>
+                                    @if ($options && isset($options->formfields_custom))
+                                        @include('voyager::formfields.custom.' . $options->formfields_custom)
+                                    @else
+                                        <div class="form-group {{ $row->field }} @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                            {{ $row->slugify }}
+                                            <label for="name">{{ $row->display_name }}</label>
+                                            @include('voyager::multilingual.input-hidden-bread-edit-add')
+                                            @if($row->type == 'relationship')
+                                                @include('voyager::formfields.relationship')
+                                            @else
+                                                {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                            @endif
+
+                                            @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
+                                                {!! $after->handle($row, $dataType, $dataTypeContent) !!}
+                                            @endforeach
+                                        </div>
+                                    @endif
                                 @endif
                             @endforeach
-                            <div class="favicon">
-    							@foreach($dataTypeRows as $row)
-    								@if($row->field == 'favicon')
-    									@php
-    										$options = json_decode($row->details);
-    										$display_options = isset($options->display) ? $options->display : NULL;
-    									@endphp
-    									@if ($options && isset($options->formfields_custom))
-    										@include('voyager::formfields.custom.' . $options->formfields_custom)
-    									@else
-    										<div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-    											{{ $row->slugify }}
-    											<label for="name">{{ $row->display_name }}</label>
-    											@include('voyager::multilingual.input-hidden-bread-edit-add')
-    											@if($row->type == 'relationship')
-    												@include('voyager::formfields.relationship')
-    											@else
-    												{!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
-    											@endif
-
-    											@foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
-    												{!! $after->handle($row, $dataType, $dataTypeContent) !!}
-    											@endforeach
-    										</div>
-    									@endif
-    								@endif
-    							@endforeach
-                            </div>
-                            @php
-                        $fieldrow = array('type_background', 'image_background', 'video_background', 'color_background');
-                        @endphp                     
-                        @foreach($dataTypeRows as $row)
-                            @if (in_array($row->field, $fieldrow))
-                                @php
-                                    $options = json_decode($row->details);
-                                    $display_options = isset($options->display) ? $options->display : NULL;
-                                @endphp
-                                <div class="form-group @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-                                    <label for="name">{{ $row->display_name }}</label>
-                                    @include('voyager::multilingual.input-hidden', [
-                                    '_field_name'  => $row->field,
-                                    '_field_trans' => get_field_translations($dataTypeContent, $row->field)
-                                    ])
-                                    {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
-                                </div>
-                            @endif
-                        @endforeach
                         </div>
                     </div>
-                <button type="submit" class="btn btn-primary pull-right">
-                    @if(isset($dataTypeContent->id)){{ __('voyager::generic.new') }}@else <i class="icon wb-plus-circle"></i> {{ __('voyager::generic.new') }} @endif
-                </button>
+                </div>
             </div>
         </form>
     </div>
