@@ -1,5 +1,8 @@
 <!doctype html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="@php
+			$lang =app()->getLocale() ?? 'ru';
+			echo $lang;
+			@endphp">
     <head>
         <title>{{ $landing->getTranslatedAttribute('title', app()->getLocale() , 'ru')}}</title>
         <meta charset="utf-8">
