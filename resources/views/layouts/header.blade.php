@@ -59,6 +59,7 @@
       {{-- <link href="{{ asset('css/vendor.css') }}" rel="stylesheet"> --}}
       <link href="{{ asset('css/mainlandin.css') }}" rel="stylesheet">
       <style>
+<?php if($agent->isDesktop()) { ?>
 .s-header {
   width: 100%;
   height: 72px;
@@ -252,89 +253,6 @@
 .header-nav li.current a,
 .header-nav li a:hover {
   color: #FFFFFF;
-}
-@media only screen and (max-width:800px) {
-  .s-header {
-    top: 0;
-  }
-  .s-header > .row {
-    max-width: none;
-    width: auto;
-  }
-  .header-logo {
-    left: 40px;
-    top: 3rem;
-    -webkit-transform: translateY(0);
-    -ms-transform: translateY(0);
-    transform: translateY(0);
-  }
-  .header-logo img {
-    width: 120px;
-    height: 34px;
-  }
-  .s-header.sticky .header-logo {
-    top: 50%;
-    left: 20px;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-  }
-  .header-menu-toggle {
-    top: 3rem;
-    right: 40px;
-  }
-  .header-nav-wrap {
-    display: none;
-    height: auto;
-    width: 100%;
-    right: auto;
-    top: 0;
-    left: 0;
-    background-color: #000000;
-    padding: 120px 40px 21px;
-  }
-  .header-nav-wrap .header-nav {
-    display: block;
-    height: auto;
-    margin: 0 0 4.2rem 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.07);
-  }
-  .header-nav-wrap .header-nav li {
-    display: block;
-    margin: 0;
-    padding: 0;
-    border-bottom: 1px dotted rgba(255, 255, 255, 0.07);
-  }
-  .header-nav-wrap .header-nav li a {
-    padding: 18px 0;
-    line-height: 18px;
-  }
-  .s-header.sticky .header-nav-wrap {
-    right: 0;
-  }
-  .header-menu-toggle {
-    display: block;
-  }
-}
-@media only screen and (max-width:400px) {
-  .header-logo {
-    left: 30px;
-  }
-  .s-header.sticky .header-logo {
-    left: 10px;
-  }
-  .header-menu-toggle {
-    right: 30px;
-  }
-  .header-menu-toggle::before {
-    display: none;
-  }
-}
-@media only screen and (min-width:801px) {
-  .header-nav-wrap {
-    display: block !important;
-  }
-
 }
 .s-home {
   width: 100%;
@@ -670,6 +588,75 @@ html.no-csstransitions .home-content__main {
     display: none;
   }
 }
+<?php } elseif ($agent->isTablet()) { ?>
+@media only screen and (max-width:800px) {
+  .s-header {
+    top: 0;
+  }
+  .s-header > .row {
+    max-width: none;
+    width: auto;
+  }
+  .header-logo {
+    left: 40px;
+    top: 3rem;
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+  .header-logo img {
+    width: 120px;
+    height: 34px;
+  }
+  .s-header.sticky .header-logo {
+    top: 50%;
+    left: 20px;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  .header-menu-toggle {
+    top: 3rem;
+    right: 40px;
+  }
+  .header-nav-wrap {
+    display: none;
+    height: auto;
+    width: 100%;
+    right: auto;
+    top: 0;
+    left: 0;
+    background-color: #000000;
+    padding: 120px 40px 21px;
+  }
+  .header-nav-wrap .header-nav {
+    display: block;
+    height: auto;
+    margin: 0 0 4.2rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+  }
+  .header-nav-wrap .header-nav li {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.07);
+  }
+  .header-nav-wrap .header-nav li a {
+    padding: 18px 0;
+    line-height: 18px;
+  }
+  .s-header.sticky .header-nav-wrap {
+    right: 0;
+  }
+  .header-menu-toggle {
+    display: block;
+  }
+}
+@media only screen and (min-width:801px) {
+  .header-nav-wrap {
+    display: block !important;
+  }
+}
 @media only screen and (max-width:800px) {
   .home-content h1 {
     font-size: 5rem;
@@ -697,6 +684,23 @@ html.no-csstransitions .home-content__main {
     width: 50px;
   }
 }
+<?php } elseif ($agent->isPhone()) { ?>
+
+@media only screen and (max-width:400px) {
+  .header-logo {
+    left: 30px;
+  }
+  .s-header.sticky .header-logo {
+    left: 10px;
+  }
+  .header-menu-toggle {
+    right: 30px;
+  }
+  .header-menu-toggle::before {
+    display: none;
+  }
+}
+
 @media only screen and (max-width:700px) {
   .home-content h1 {
     font-size: 4.8rem;
@@ -766,6 +770,7 @@ html.no-csstransitions .home-content__main {
     padding: 0 7rem 0 4rem;
   }
 }
+<?php } ?>
       </style>
   </head>
   <body id="top">
@@ -808,12 +813,7 @@ html.no-csstransitions .home-content__main {
     ================================================== -->
     <footer>
         <div class="row">
-            <div class="col-full cl-copyright">
-                <span><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-</span>
-            </div>
+            
         </div>
 
         <div class="cl-go-top">
