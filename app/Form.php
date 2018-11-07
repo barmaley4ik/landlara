@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Form extends Model
 {
-    public function form_formfields()
+/*     public function form_formfields()
   {
-    return $this->belongsToMany('App\Formfield', 'form_formfields')->withPivot('order');
-  }
+    return $this->belongsToMany('App\Lformfield', 'form_lformfields')->withPivot('order');
+  } */
 }
