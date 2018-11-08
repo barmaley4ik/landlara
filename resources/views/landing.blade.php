@@ -66,7 +66,7 @@
 
 <!-- about
 ================================================== -->
-<section id="contact" class="s-contact target-section">
+<section id="about" class="s-contact target-section">
     <div class="row section-header" data-aos="fade-up">
         <div class="col-full">
             <h3 data-num="04" class="subhead">About As</h3>
@@ -74,8 +74,8 @@
     </div>
     <div class="row about-infos">
         
-        <video src="{{ Storage::disk('public')->url('/videoplayback.mp4') }}" {{-- poster="{{ $landing_bg }}" --}} controls width="1024" height="683" style="width: 100%;">
-            <source src="{{ Storage::disk('public')->url('/videoplayback.mp4') }}" type="video/mp4"><!-- MP4 для Safari, IE9, iPhone, iPad, Android, и Windows Phone 7 -->
+        <video data-aload="{{ Storage::disk('public')->url('/videoplayback.mp4') }}" {{-- poster="{{ $landing_bg }}" --}} controls width="1024" height="683" style="width: 100%;">
+            <source data-aload="{{ Storage::disk('public')->url('/videoplayback.mp4') }}" type="video/mp4"><!-- MP4 для Safari, IE9, iPhone, iPad, Android, и Windows Phone 7 -->
             {{--<source src="video.webm" type="video/webm"><!-- WebM/VP8 для Firefox4, Opera, и Chrome -->--}}
             {{--<source src="video.ogv" type="video/ogg"><!-- Ogg/Vorbis для старых версий браузеров Firefox и Opera -->--}}
             {{--<object data="video.swf" type="application/x-shockwave-flash"><!-- добавляем видеоконтент для устаревших браузеров, в которых нет поддержки элемента video -->--}}
