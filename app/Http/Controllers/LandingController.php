@@ -14,6 +14,7 @@ use TCG\Voyager\Traits\Translatable;
 use Voyager;
 use Storage;
 use Response;
+use Debugbar;
 
 class LandingController extends Controller
 {
@@ -21,6 +22,7 @@ class LandingController extends Controller
 
 	    public function index($locale=null)
     {
+    		Debugbar::disable();
 			/*установка локали*/ 
 			$permissionlacale = array('en', 'ru','');
 			if((($locale) || ($locale==''))&& (in_array($locale, $permissionlacale))){
