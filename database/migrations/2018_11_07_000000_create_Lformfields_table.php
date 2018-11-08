@@ -21,6 +21,7 @@ class CreateLformfieldsTable extends Migration
 			$table->string('label', 100);
 			$table->string('placeholder', 150);
 			$table->text('validation');
+			$table->text('fvalue');
             $table->timestamps();
         });
     }
