@@ -1,4 +1,4 @@
-@extends('layouts.header')
+@extends('layouts.html')
 
 @section('content')
 @if (($landing->type_background == 2) || ($landing->type_background == 1))
