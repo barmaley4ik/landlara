@@ -46,20 +46,27 @@
 
     <!--    <link rel="shortcut icon" href="//upst.fwdcdn.com/favicon-v3.ico" type="'image/x-icon"/>-->
     <!-- For iPhone 4 Retina display: -->
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ Storage::disk('public')->url($landing->favicon) }}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" data-aload="{{ Storage::disk('public')->url($landing->favicon) }}">
     <!-- For iPad: -->
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ Voyager::image($landing->thumbnail('medium', 'favicon')) }}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" data-aload="{{ Voyager::image($landing->thumbnail('medium', 'favicon')) }}">
     <!-- For iPhone: -->
-    <link rel="apple-touch-icon-precomposed" href="{{ Voyager::image($landing->thumbnail('small', 'favicon')) }}">
+    <link rel="apple-touch-icon-precomposed" data-aload="{{ Voyager::image($landing->thumbnail('small', 'favicon')) }}">
     <!--Fonts -->
 
 
     <!-- Styles -->
-    <link href="{{ asset('css/base.css') }}" rel="stylesheet">
+    <link data-aload="{{ asset('css/base.css') }}" rel="stylesheet">
     {{-- <link href="{{ asset('css/vendor.css') }}" rel="stylesheet"> --}}
-    <link href="{{ asset('css/mainlandin.css') }}" rel="stylesheet">
+    <link data-aload="{{ asset('css/mainlandin.css') }}" rel="stylesheet">
 
     @include('layouts.cssonpage')
+
+    <script>
+        function aload(t){"use strict";var e="data-aload";return t=t||window.document.querySelectorAll("["+e+"]"),void 0===t.length&&(t=[t]),[].forEach.call(t,function(t){t["LINK"!==t.tagName?"src":"href"]=t.getAttribute(e),t.removeAttribute(e)}),t}
+        window.onload = function () {
+            aload();
+        };
+    </script>
 
 </head>
 <body id="top">
