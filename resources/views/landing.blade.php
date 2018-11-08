@@ -118,6 +118,18 @@
                 <li><a href="tel:{{ $landing->mobile }}">{{ $landing->mobile }}</a></li>
             </ul>
         </div>
+        <div style="color: #fff" class="form">
+            <h4>Будущая форма</h4>
+            @if ($formfield->ftype = 'dropdown')
+                @php $fvalues = json_decode($formfield->fvalue) @endphp
+
+                <select class="form-control select2" name="{{ $formfield->name }}">
+                    @foreach($fvalues->options as $key => $option)
+                        <option value="{{ $key }}" @if($fvalues->default == $key){{ 'selected="selected"' }}@endif >{{ $option }}</option>
+                    @endforeach
+                </select>
+            @endif
+        </div>
 {{--         <div class="row contact-bottom">
             <div class="col-five tab-full contact-button" data-aos="fade-up">
                 <a href="#about" class="smoothscroll btn btn-animatedbg">
