@@ -12,24 +12,36 @@
         </div> <!-- end home-content__main -->
     </div> <!-- end home-content -->
     <ul class="home-social">
+        @isset($landing->facebook)
         <li>
             <a href="{{ $landing->facebook }}"><i class="fab fa-facebook-f" aria-hidden="true"></i><span>Facebook</span></a>
         </li>
+        @endisset
+        @isset($landing->twitter)
         <li>
             <a href="{{ $landing->twitter }}"><i class="fab fa-twitter" aria-hidden="true"></i><span>Twiiter</span></a>
         </li>
+        @endisset
+        @isset($landing->instagramm)
         <li>
             <a href="{{ $landing->instagramm }}"><i class="fab fa-instagram" aria-hidden="true"></i><span>Instagram</span></a>
         </li>
+        @endisset
+        @isset($landing->youtube)
         <li>
             <a href="{{ $landing->youtube }}"><i class="fab fa-youtube" aria-hidden="true"></i><span>YouTube</span></a>
         </li>
+        @endisset
+        @isset($landing->pinterest)
         <li>
             <a href="{{ $landing->pinterest }}"><i class="fab fa-pinterest" aria-hidden="true"></i><span>Pinterest</span></a>
         </li>
+        @endisset
+        @isset($landing->googleplus)
         <li>
             <a href="{{ $landing->googleplus }}"><i class="fab fa-google" aria-hidden="true"></i><span>Google</span></a>
         </li>
+        @endisset
     </ul> <!-- end home-social -->
 </section> <!-- end s-home -->
 @else
@@ -73,7 +85,6 @@
         </div>
     </div>
     <div class="row about-infos">
-        
         <video data-aload="{{ Storage::disk('public')->url('/videoplayback.mp4') }}" {{-- poster="{{ $landing_bg }}" --}} controls width="1024" height="683" style="width: 100%;">
             <source data-aload="{{ Storage::disk('public')->url('/videoplayback.mp4') }}" type="video/mp4"><!-- MP4 для Safari, IE9, iPhone, iPad, Android, и Windows Phone 7 -->
             {{--<source src="video.webm" type="video/webm"><!-- WebM/VP8 для Firefox4, Opera, и Chrome -->--}}
@@ -122,7 +133,7 @@
             <h4>Будущая форма</h4>
             @if ($formfield->ftype == '2')
                 @php $fvalues = json_decode($formfield->fvalue) @endphp
-
+                <label class="label label-warning">{{ $formfield->label }}</label>
                 <select class="form-control select2" name="{{ $formfield->name }}">
                     @foreach($fvalues->options as $key => $option)
                         <option value="{{ $key }}" @if($fvalues->default == $key){{ 'selected="selected"' }}@endif >{{ $option }}</option>
