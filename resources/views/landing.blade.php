@@ -85,7 +85,6 @@
         </div>
     </div>
     <div class="row about-infos">
-        
         <video data-aload="{{ Storage::disk('public')->url('/videoplayback.mp4') }}" {{-- poster="{{ $landing_bg }}" --}} controls width="1024" height="683" style="width: 100%;">
             <source data-aload="{{ Storage::disk('public')->url('/videoplayback.mp4') }}" type="video/mp4"><!-- MP4 для Safari, IE9, iPhone, iPad, Android, и Windows Phone 7 -->
             {{--<source src="video.webm" type="video/webm"><!-- WebM/VP8 для Firefox4, Opera, и Chrome -->--}}
