@@ -122,7 +122,7 @@
             <h4>Будущая форма</h4>
             @if ($formfield->ftype = 'dropdown')
                 @php $fvalues = json_decode($formfield->fvalue) @endphp
-
+                <label class="label label-warning">{{ $formfield->label }}</label>
                 <select class="form-control select2" name="{{ $formfield->name }}">
                     @foreach($fvalues->options as $key => $option)
                         <option value="{{ $key }}" @if($fvalues->default == $key){{ 'selected="selected"' }}@endif >{{ $option }}</option>
