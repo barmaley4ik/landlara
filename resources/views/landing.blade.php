@@ -131,15 +131,69 @@
         </div>
         <div style="color: #fff" class="form">
             <h4>Будущая форма</h4>
-            @if ($formfield->ftype == '2')
-                @php $fvalues = json_decode($formfield->fvalue) @endphp
-                <label class="label label-warning">{{ $formfield->label }}</label>
-                <select class="form-control select2" name="{{ $formfield->name }}">
-                    @foreach($fvalues->options as $key => $option)
-                        <option value="{{ $key }}" @if($fvalues->default == $key){{ 'selected="selected"' }}@endif >{{ $option }}</option>
-                    @endforeach
-                </select>
-            @endif
+            <form action="">
+                @foreach($formfields as $formfield)
+                    @if ($formfield->ftype == '1')
+                        @php 
+                        $fvalues = json_decode($formfield->fvalue) 
+                        @endphp
+                        <label class="label label-warning">
+                            @if(!empty($formfield->label))
+                                {{ $formfield->label }}
+                            @endif
+                        </label>
+                        <input @if($formfield->frequired == '1') required @endif type="text" class="form-control" name="{{ $formfield->label }}" placeholder="@if(!empty($formfield->placeholder)) {{ $formfield->placeholder }}@endif" value="">
+                    @elseif ($formfield->ftype == '2')
+                        @php 
+                        $fvalues = json_decode($formfield->fvalue) 
+                        @endphp
+                        <label class="label label-warning">
+                            @if(!empty($formfield->label))
+                                {{ $formfield->label }}
+                            @endif
+                        </label>
+                        <input @if($formfield->frequired == '1') required @endif type="email" class="form-control" name="{{ $formfield->label }}" placeholder="@if(!empty($formfield->placeholder)) {{ $formfield->placeholder }}@endif" value="">
+                    @elseif ($formfield->ftype == '3')
+                        @php 
+                        $fvalues = json_decode($formfield->fvalue) 
+                        @endphp
+                        <label class="label label-warning">
+                            @if(!empty($formfield->label))
+                                {{ $formfield->label }}
+                            @endif
+                        </label>
+                        <input @if($formfield->frequired == '1') required @endif type="tel" class="form-control" name="{{ $formfield->label }}" placeholder="@if(!empty($formfield->placeholder)) {{ $formfield->placeholder }}@endif" value="">
+                    @elseif ($formfield->ftype == '4')
+                        @php 
+                        $fvalues = json_decode($formfield->fvalue);
+                        @endphp
+                        <label class="label label-warning">
+                            @if(!empty($formfield->label))
+                                {{ $formfield->label }}
+                            @endif
+                        </label>
+                        <select @if($formfield->frequired == '1') required @endif class="form-control select2" name="{{ $formfield->name }}">
+                            @foreach($fvalues->options as $key => $option)
+                                <option value="{{ $key }}" @if($fvalues->default == $key){{ 'selected="selected"' }}@endif >{{ $option }}</option>
+                            @endforeach
+                        </select>
+                    @elseif ($formfield->ftype == '5')
+                        @php
+                        $fvalues = json_decode($formfield->fvalue);
+                        @endphp
+                        <label class="label label-warning">
+                            @if(!empty($formfield->label))
+                                {{ $formfield->label }}
+                            @endif
+                        </label>
+                        
+                            <input type="checkbox" name="{{ $formfield->label }}" class="toggleswitch"
+                               @if($fvalues->default == $fvalues->options->on)     checked @endif >
+                        
+                    @endif
+                @endforeach
+                
+            </form>
         </div>
 {{--         <div class="row contact-bottom">
             <div class="col-five tab-full contact-button" data-aos="fade-up">

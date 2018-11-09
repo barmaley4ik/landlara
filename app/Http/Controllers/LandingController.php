@@ -69,8 +69,7 @@ class LandingController extends Controller
     		        
             /*form*/
             
-            $formfield = DB::table('lformfields')->get()->first();
-						
+            $formfields = DB::table('lformfields')->get();
 			/*все дочерние слайдеры*/
 			$sliders = DB::table('mainland_blockslider')
             ->leftJoin('blocksliders', 'mainland_blockslider.blockslider_id', '=', 'blocksliders.id')
@@ -99,7 +98,7 @@ class LandingController extends Controller
 			->select('onebaners.*','blockbaners.*')
             ->get();
 			 
-            return view ('landing', compact('landing','socials' ,'landing_bg', 'color', 'video','sliders','baners', 'agent', 'formfield'));
+            return view ('landing', compact('landing','socials' ,'landing_bg', 'color', 'video','sliders','baners', 'agent', 'formfields'));
 //return response()->view('landing', compact('landing','socials' ,'landing_bg', 'color', 'video','sliders','baners', 'agent'))->header('Content-Type', $type);
 			//var_dump($baners); 
     }
