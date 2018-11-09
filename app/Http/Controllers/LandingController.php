@@ -68,8 +68,8 @@ class LandingController extends Controller
     		
     		        
             /*form*/
+            
             $formfield = DB::table('lformfields')->get()->first();
-//            dd($form);
 						
 			/*все дочерние слайдеры*/
 			$sliders = DB::table('mainland_blockslider')
@@ -98,7 +98,7 @@ class LandingController extends Controller
 			->orderBy('onebaners.id')
 			->select('onebaners.*','blockbaners.*')
             ->get();
-			 		
+			 
             return view ('landing', compact('landing','socials' ,'landing_bg', 'color', 'video','sliders','baners', 'agent', 'formfield'));
 //return response()->view('landing', compact('landing','socials' ,'landing_bg', 'color', 'video','sliders','baners', 'agent'))->header('Content-Type', $type);
 			//var_dump($baners); 

@@ -120,7 +120,7 @@
         </div>
         <div style="color: #fff" class="form">
             <h4>Будущая форма</h4>
-            @if ($formfield->ftype = 'dropdown')
+            @if ($formfield->ftype == '2')
                 @php $fvalues = json_decode($formfield->fvalue) @endphp
 
                 <select class="form-control select2" name="{{ $formfield->name }}">
