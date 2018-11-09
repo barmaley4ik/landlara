@@ -221,6 +221,9 @@
                     </div>
                 </div>
             </div>
+            <button type="submit" onclick="$('form.form-edit-add').submit();" class="btn btn-primary pull-right" style="margin-right: 20px;" >
+            @if(isset($dataTypeContent->id)){{ __('voyager::generic.new') }}@else <i class="icon wb-plus-circle"></i> {{ __('voyager::generic.new') }} @endif
+        </button>
         </form>
     </div>
 

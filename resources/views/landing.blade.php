@@ -12,24 +12,36 @@
         </div> <!-- end home-content__main -->
     </div> <!-- end home-content -->
     <ul class="home-social">
+        @isset($landing->facebook)
         <li>
             <a href="{{ $landing->facebook }}"><i class="fab fa-facebook-f" aria-hidden="true"></i><span>Facebook</span></a>
         </li>
+        @endisset
+        @isset($landing->twitter)
         <li>
             <a href="{{ $landing->twitter }}"><i class="fab fa-twitter" aria-hidden="true"></i><span>Twiiter</span></a>
         </li>
+        @endisset
+        @isset($landing->instagramm)
         <li>
             <a href="{{ $landing->instagramm }}"><i class="fab fa-instagram" aria-hidden="true"></i><span>Instagram</span></a>
         </li>
+        @endisset
+        @isset($landing->youtube)
         <li>
             <a href="{{ $landing->youtube }}"><i class="fab fa-youtube" aria-hidden="true"></i><span>YouTube</span></a>
         </li>
+        @endisset
+        @isset($landing->pinterest)
         <li>
             <a href="{{ $landing->pinterest }}"><i class="fab fa-pinterest" aria-hidden="true"></i><span>Pinterest</span></a>
         </li>
+        @endisset
+        @isset($landing->googleplus)
         <li>
             <a href="{{ $landing->googleplus }}"><i class="fab fa-google" aria-hidden="true"></i><span>Google</span></a>
         </li>
+        @endisset
     </ul> <!-- end home-social -->
 </section> <!-- end s-home -->
 @else
