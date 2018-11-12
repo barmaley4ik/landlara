@@ -38,35 +38,37 @@
               @endif
         }
 </script>
+
+@if ($video_on_page)
 <script type="application/ld+json">
 {
-  "@context": "http://schema.org",
-  "@type": "VideoObject",
-  "name": "Introducing the self-driving bicycle in the Netherlands",
-  "description": "This spring, Google is introducing the self-driving bicycle in Amsterdam, the world’s premier cycling city. The Dutch cycle more than any other nation in the world, almost 900 kilometres per year per person, amounting to over 15 billion kilometres annually. The self-driving bicycle enables safe navigation through the city for Amsterdam residents, and furthers Google’s ambition to improve urban mobility with technology. Google Netherlands takes enormous pride in the fact that a Dutch team worked on this innovation that will have great impact in their home country.",
-  "thumbnailUrl": [
-    "https://example.com/photos/1x1/photo.jpg",
-    "https://example.com/photos/4x3/photo.jpg",
-    "https://example.com/photos/16x9/photo.jpg"
-   ],
-  "publisher": {
-    "@type": "Organization",
-    "name": "{{ $landing->getTranslatedAttribute('name', app()->getLocale() , 'ru')}}",
-    @if ($landing->logo)
-    "logo": {
-      "@type": "ImageObject",
-      "url": "{{ Storage::disk('public')->url($landing->logo) }}",
-      "width": 600,
-      "height": 60
-    }
-    @endif
-  },   
-  "uploadDate": "2016-03-31T08:00:00+08:00",
-  "contentUrl": "https://www.example.com/video/123/file.mp4",
-  "embedUrl": "https://www.example.com/embed/123"
+    "@context": "http://schema.org",
+    "@type": "VideoObject",
+    "name": "Introducing the self-driving bicycle in the Netherlands",
+    "description": "This spring, Google is introducing the self-driving bicycle in Amsterdam, the world’s premier cycling city. The Dutch cycle more than any other nation in the world, almost 900 kilometres per year per person, amounting to over 15 billion kilometres annually. The self-driving bicycle enables safe navigation through the city for Amsterdam residents, and furthers Google’s ambition to improve urban mobility with technology. Google Netherlands takes enormous pride in the fact that a Dutch team worked on this innovation that will have great impact in their home country.",
+    "thumbnailUrl": [
+        "https://example.com/photos/1x1/photo.jpg",
+        "https://example.com/photos/4x3/photo.jpg",
+        "https://example.com/photos/16x9/photo.jpg"
+    ],
+    "publisher": {
+        "@type": "Organization",
+        "name": "{{ $landing->getTranslatedAttribute('name', app()->getLocale() , 'ru')}}",
+        @if ($landing->logo)
+        "logo": {
+            "@type": "ImageObject",
+            "url": "{{ Storage::disk('public')->url($landing->logo) }}",
+            "width": 600,
+            "height": 60
+        }
+        @endif
+    },   
+    "uploadDate": "2016-03-31T08:00:00+08:00",
+    "contentUrl": "https://www.example.com/video/123/file.mp4",
+    "embedUrl": "https://www.example.com/embed/123"
 }
-        </script>
-
+</script>
+@endif
 
 
     <link rel="icon" href="{{ Storage::disk('public')->url($landing->favicon) }}" type="image/png" />
