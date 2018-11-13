@@ -97,8 +97,8 @@ class LandingController extends Controller
 			->orderBy('onebaners.id')
 			->select('onebaners.*','blockbaners.*')
             ->get();
-			 
-            return view ('landing', compact('landing','socials' ,'landing_bg', 'color', 'video','sliders','baners', 'agent', 'formfields'));
+			$video_on_page = '';
+            return view ('landing', compact('landing','socials' ,'landing_bg', 'color', 'video','sliders','baners', 'agent', 'formfields','video_on_page'));
 //return response()->view('landing', compact('landing','socials' ,'landing_bg', 'color', 'video','sliders','baners', 'agent'))->header('Content-Type', $type);
 			//var_dump($baners); 
     }
