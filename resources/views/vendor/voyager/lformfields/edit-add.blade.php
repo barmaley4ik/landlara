@@ -47,9 +47,6 @@
             overflow-x: hidden;
             min-height: 100%;
         }
-        .app-container .content-container .side-body {
-            position: relative;
-        }
         .but {
             width: 98%;
             float: right;
@@ -89,72 +86,17 @@
     @endphp
 
     <div class="page-content container-fluid">
-        <form class="form-edit-add" role="form" action="@if(isset($dataTypeContent->id)){{ route('voyager.onevideos.update', $dataTypeContent->id) }}@else{{ route('voyager.onevideos.store') }}@endif" method="POST" enctype="multipart/form-data">
-            <!-- PUT Method if we are editing -->
-            @if(isset($dataTypeContent->id))
-                {{ method_field("PUT") }}
-            @endif
-            {{ csrf_field() }}
+        <form class="form-edit-add" role="form" action="@if(isset($dataTypeContent->id)){{ route('voyager.lformfields.update', $dataTypeContent->id) }}@else{{ route('voyager.lformfields.store') }}@endif" method="POST" enctype="multipart/form-data">
             <div class="row">
-                <div class="col-md-8">
-                    <!-- ### TITLE ### -->
-                    <div class="panel">
-                        @if (count($errors) > 0)
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                        <div class="panel-heading">
-                            <h3 class="panel-title">
-                                <i class="voyager-character"></i> {{ __('voyager::onevideo.caption') }}
-
-                            </h3>
-                        </div>
+                <div class="col md-8">
+                    <div class="panel panel panel-bordered">
                         <div class="panel-body">
-                            <div class="caption">
-                                @include('voyager::multilingual.input-hidden', [
-                                    '_field_name'  => 'caption',
-                                    '_field_trans' => get_field_translations($dataTypeContent, 'caption')
-                                ])
-                                <input type="text" class="form-control caption" id="caption" name="caption" placeholder="{{ __('voyager::generic.caption') }}" value="@if(isset($dataTypeContent->caption)){{ $dataTypeContent->caption }}@endif">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="panel panel panel-bordered panel-warning">
-                        <div class="panel-body">
+                            @php
+                            $fieldrow = array('name');
+                            @endphp                     
                             @foreach($dataTypeRows as $row)
-                                @if($row->field == 'status')
-                                <div class="form-group {{ $row->field }} @if($row->type == 'hidden') hidden @endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-                                    <label for="name">{{ $row->display_name }}</label>
-                                    {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
-                                </div>
-                                @endif
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="panel panel panel-bordered panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="icon wb-image"></i> {{ __('voyager::generic.video_block') }}</h3>
-                            {{--<div class="panel-actions">--}}
-                                {{--<a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>--}}
-                            {{--</div>--}}
-                        </div>
-                        <div class="panel-body">
-                            <div class="col-md-8">
-                                @php
-                                    $fieldrow = array('linkvideo', 'typevideo');
-                                @endphp
-                                @foreach($dataTypeRows as $row)
-                                    @if (in_array($row->field, $fieldrow))
-                                        @php
+                                @if(!in_array($row->field, $exclude))
+                                    @php
                                         $display_options = isset($row->details->display) ? $row->details->display : NULL;
                                     @endphp
                                     @if (isset($row->details->formfields_custom))
@@ -175,14 +117,52 @@
                                             @endforeach
                                         </div>
                                     @endif
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="panel panel panel-bordered">
+                        <div class="panel-body">
+                            @php
+                            $fieldrow = array('validation','fvalue');
+                            @endphp                     
+                            @foreach($dataTypeRows as $row)
+                                @if (in_array($row->field, $fieldrow))
+                                    @if($row->field = 'name')
+                                        @php
+                                        $display_options = isset($row->details->display) ? $row->details->display : NULL;
+                                    @endphp
+                                    @if (isset($row->details->formfields_custom))
+                                        @include('voyager::formfields.custom.' . $row->details->formfields_custom)
+                                        @else
+                                            <div class="form-group @if($row->type == 'hidden') hidden @endif @if(isset($display_options->width)){{ 'col-md-' . $display_options->width }}@endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                                {{ $row->slugify }}
+                                                <label for="name">{{ $row->display_name }}</label>
+                                                @include('voyager::multilingual.input-hidden-bread-edit-add')
+                                                @if($row->type == 'relationship')
+                                                    @include('voyager::formfields.relationship')
+                                                @else
+                                                    {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                                @endif
+
+                                                @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
+                                                    {!! $after->handle($row, $dataType, $dataTypeContent) !!}
+                                                @endforeach
+                                            </div>
+                                        @endif
                                     @endif
-                                @endforeach
-                            </div>
-                            <div class="image col-md-4">
-                                @php
-                                    $fieldrow = array('image');
-                                @endphp
-                                @foreach($dataTypeRows as $row)
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel panel-bordered">
+                        <div class="panel-body">
+                            @php
+                            $fieldrow = array('ftype','frequired');
+                            @endphp                     
+                            @foreach($dataTypeRows as $row)
                                 @if (in_array($row->field, $fieldrow))
                                     @php
                                         $display_options = isset($row->details->display) ? $row->details->display : NULL;
@@ -205,15 +185,44 @@
                                             @endforeach
                                         </div>
                                     @endif
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="panel panel panel-bordered">
+                        <div class="panel-body">
+                            @php
+                            $fieldrow = array('label','placeholder');
+                            @endphp                     
+                            @foreach($dataTypeRows as $row)
+                                @if (in_array($row->field, $fieldrow))
+                                    @php
+                                        $display_options = isset($row->details->display) ? $row->details->display : NULL;
+                                    @endphp
+                                    @if (isset($row->details->formfields_custom))
+                                        @include('voyager::formfields.custom.' . $row->details->formfields_custom)
+                                    @else
+                                        <div class="form-group @if($row->type == 'hidden') hidden @endif @if(isset($display_options->width)){{ 'col-md-' . $display_options->width }}@endif" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                            {{ $row->slugify }}
+                                            <label for="name">{{ $row->display_name }}</label>
+                                            @include('voyager::multilingual.input-hidden-bread-edit-add')
+                                            @if($row->type == 'relationship')
+                                                @include('voyager::formfields.relationship')
+                                            @else
+                                                {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                            @endif
+
+                                            @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
+                                                {!! $after->handle($row, $dataType, $dataTypeContent) !!}
+                                            @endforeach
+                                        </div>
                                     @endif
-                                @endforeach
-                            </div>
+                                @endif
+                            @endforeach
                         </div>
                     </div>
                 </div>
-                <button type="submit" onclick="$('form.form-edit-add').submit();" class="btn btn-primary pull-right" style="margin-right: 20px;" >
-            @if(isset($dataTypeContent->id)){{ __('voyager::generic.new') }}@else <i class="icon wb-plus-circle"></i> {{ __('voyager::generic.new') }} @endif
-        </button>
+                <button type="submit" onclick="$('form.form-edit-add').submit();" class="btn btn-primary pull-right" style="margin-right: 20px;" >@if(isset($dataTypeContent->id)){{ __('voyager::generic.new') }}@else <i class="icon wb-plus-circle"></i> {{ __('voyager::generic.new') }} @endif </button>
             </div>
         </form>
     </div>
